@@ -1,11 +1,11 @@
 const request = require('supertest');
-const app = require('../app');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const app = require('../app');
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
 
 jest.setTimeout(30000); // Timeout erhöhen
 
@@ -14,57 +14,55 @@ describe('Orders API', () => {
   let userId;
   let productId;
 
-beforeAll(async () => {
-  try {
-    // Stelle sicher, dass die Datenbankverbindung existiert
-    if (!mongoose.connection.readyState) {
-      await mongoose.connect('mongodb://localhost:27017/testdb', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+  beforeAll(async () => {
+    try {
+      // Stelle sicher, dass die Datenbankverbindung existiert
+      if (!mongoose.connection.readyState) {
+        await mongoose.connect('mongodb+srv://AncientVeda:root@cluster0.6z90s.mongodb.net/AncientVedas?retryWrites=true&w=majority', {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        });
+      }
+
+      // Admin-Benutzer erstellen
+      const hashedPassword = await bcrypt.hash('securepassword', 10);
+      let admin = await User.findOne({ email: 'admin@example.com' });
+      if (!admin) {
+        admin = await User.create({
+          name: 'Admin User',
+          email: 'admin@example.com',
+          password_hash: hashedPassword,
+          role: 'admin',
+        });
+      }
+      userId = admin._id;
+
+      // Benutzer einloggen, um Token zu erhalten
+      const loginResponse = await request(app)
+        .post('/users/login')
+        .send({ email: 'admin@example.com', password: 'securepassword' });
+      token = loginResponse.body.token;
+
+      // Testprodukt erstellen
+      const product = await Product.create({
+        name: 'Test Produkt',
+        description: 'Ein Testprodukt',
+        price: 10,
+        stock: 100,
+        category: new mongoose.Types.ObjectId(),
       });
-    }
+      productId = product._id;
 
-    // Admin-Benutzer erstellen
-    const hashedPassword = await bcrypt.hash('securepassword', 10);
-    let admin = await User.findOne({ email: 'admin@example.com' });
-    if (!admin) {
-      admin = await User.create({
-        name: 'Admin User', // Name hinzufügen
-        email: 'admin@example.com',
-        password_hash: hashedPassword,
-        role: 'admin',
+      // Test-Warenkorb erstellen
+      await Cart.create({
+        userId,
+        items: [{ productId, quantity: 2 }],
       });
+    } catch (err) {
+      console.error('Fehler in beforeAll:', err.message);
+      throw err;
     }
-    userId = admin._id;
-
-    // Benutzer einloggen, um Token zu erhalten
-    const loginResponse = await request(app)
-      .post('/users/login')
-      .send({ email: 'admin@example.com', password: 'securepassword' });
-    token = loginResponse.body.token;
-
-    // Testprodukt erstellen
-    const product = new Product({
-      name: 'Test Produkt',
-      description: 'Ein Testprodukt',
-      price: 10,
-      stock: 100,
-      category: new mongoose.Types.ObjectId(),
-    });
-    const savedProduct = await product.save();
-    productId = savedProduct._id;
-
-    // Test-Warenkorb erstellen
-    const cart = new Cart({
-      userId,
-      items: [{ productId, quantity: 2 }],
-    });
-    await cart.save();
-  } catch (err) {
-    console.error('Fehler in beforeAll:', err.message);
-    throw err;
-  }
-});
+  });
 
   afterAll(async () => {
     try {
@@ -76,6 +74,26 @@ beforeAll(async () => {
     } catch (err) {
       console.error('Fehler in afterAll:', err.message);
     }
+  });
+
+  beforeEach(async () => {
+    // Bereinige und erstelle ein neues Test-Produkt und Warenkorb
+    await Product.deleteMany();
+    await Cart.deleteMany();
+
+    const product = await Product.create({
+      name: 'Test Produkt',
+      description: 'Ein Testprodukt',
+      price: 10,
+      stock: 100,
+      category: new mongoose.Types.ObjectId(),
+    });
+    productId = product._id;
+
+    await Cart.create({
+      userId,
+      items: [{ productId, quantity: 2 }],
+    });
   });
 
   it('should create a new order', async () => {
