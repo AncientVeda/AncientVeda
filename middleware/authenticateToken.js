@@ -4,27 +4,27 @@ function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
+  // Debugging: Auth Header und Token prüfen
+  console.log('Authorization Header:', authHeader);
+  console.log('Extracted Token:', token);
+
   if (!token) {
     console.error('Kein Token im Header gefunden');
-    return res.status(401).json({ message: 'Kein Token bereitgestellt' });
+    return res.status(401).json({ message: 'Kein Token bereitgestellt' }); // Fehler 401: Kein Token
   }
 
-console.log('Authorization Header:', req.headers['authorization']);
-console.log('Token Secret:', process.env.JWT_SECRET);
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => { // `JWT_SECRET` statt `ACCESS_TOKEN_SECRET`
+  // Token-Verifizierung
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.error('Token-Verifizierung fehlgeschlagen:', err.message);
-      return res.status(401).json({ message: 'Ungültiger oder abgelaufener Token' });
+      return res.status(403).json({ message: 'Ungültiger oder abgelaufener Token' }); // Fehler 403: Ungültiger Token
     }
 
-    console.log('Token validiert:', user); // Debugging
-    req.user = user;
-    next();
+    console.log('Token erfolgreich validiert:', user); // Debugging: Validiertes Token-Objekt
+    req.user = user; // Benutzerinformationen dem Request-Objekt hinzufügen
+    next(); // Weiter zur nächsten Middleware oder Route
   });
 }
-
-
 
 module.exports = authenticateToken;
 

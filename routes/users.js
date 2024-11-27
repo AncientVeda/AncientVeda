@@ -110,6 +110,12 @@ router.post(
     }
 
     try {
+      console.log('Registrierungsdaten:', req.body);
+      const existingUser = await User.findOne({ email: req.body.email });
+      if (existingUser) {
+        return res.status(400).json({ message: 'E-Mail ist bereits registriert.' });
+      }
+
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const user = new User({
         name: req.body.name,
@@ -121,8 +127,9 @@ router.post(
       });
 
       const newUser = await user.save();
-      res.status(201).json(newUser);
+      res.status(201).json({ message: 'Benutzer erfolgreich registriert.', user: newUser });
     } catch (err) {
+      console.error('Fehler bei der Registrierung:', err);
       next(err);
     }
   }
@@ -179,6 +186,7 @@ router.post(
     }
 
     try {
+      console.log('Login-Daten:', req.body);
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
         return res.status(400).json({ message: 'Ungültige E-Mail oder Passwort.' });
@@ -192,8 +200,10 @@ router.post(
       const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
+
       res.json({ token, message: 'Login erfolgreich!' });
     } catch (err) {
+      console.error('Fehler beim Login:', err);
       next(err);
     }
   }
@@ -230,8 +240,27 @@ router.get('/', authenticateToken, async (req, res) => {
     const users = await User.find();
     res.json(users);
   } catch (err) {
+    console.error('Fehler beim Abrufen der Benutzerliste:', err);
     res.status(500).json({ message: err.message });
   }
+});
+
+/**
+ * @swagger
+ * /users/protected-route:
+ *   get:
+ *     summary: Testet den Zugriff auf eine geschützte Route.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Zugriff erlaubt.
+ *       403:
+ *         description: Ungültiger oder fehlender Token.
+ */
+router.get('/protected-route', authenticateToken, (req, res) => {
+  res.status(200).json({ message: 'Zugriff erlaubt.' });
 });
 
 module.exports = router;
