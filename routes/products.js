@@ -155,6 +155,93 @@ router.get('/', authenticateToken, async (req, res) => {
 
 /**
  * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Ruft ein einzelnes Produkt anhand seiner ID ab.
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Die ID des Produkts.
+ *     responses:
+ *       200:
+ *         description: Details des Produkts.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Produkt nicht gefunden.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Produkt nicht gefunden"
+ *       500:
+ *         description: Interner Serverfehler.
+ */
+router.get('/:id', authenticateToken, async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Produkt nicht gefunden' });
+    }
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
+  }
+});
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     summary: Löscht ein Produkt anhand seiner ID.
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Die ID des Produkts.
+ *     responses:
+ *       200:
+ *         description: Produkt erfolgreich gelöscht.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Produkt erfolgreich gelöscht."
+ *       404:
+ *         description: Produkt nicht gefunden.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Produkt nicht gefunden"
+ *       500:
+ *         description: Interner Serverfehler.
+ */
+router.delete('/:id', authenticateToken, async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Produkt nicht gefunden' });
+    }
+    res.json({ message: 'Produkt erfolgreich gelöscht' });
+  } catch (err) {
+    res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
+  }
+});
+
+
+/**
+ * @swagger
  * /products/search:
  *   get:
  *     summary: Durchsucht Produkte mit Filtern.
