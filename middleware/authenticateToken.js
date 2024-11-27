@@ -17,7 +17,7 @@ function authenticateToken(req, res, next) {
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.error('Token-Verifizierung fehlgeschlagen:', err.message);
-      return res.status(403).json({ message: 'Ungültiger oder abgelaufener Token' }); // Fehler 403: Ungültiger Token
+      return res.status(401).json({ message: 'Ungültiger oder abgelaufener Token' }); // Fehler 401: Ungültiger Token
     }
 
     console.log('Token erfolgreich validiert:', user); // Debugging: Validiertes Token-Objekt

@@ -222,7 +222,7 @@ router.delete('/:itemId', authenticateToken, async (req, res) => {
         const cart = await Cart.findOne({ userId: req.user.userId });
 
         if (!cart) {
-            return res.status(404).json({ message: 'Warenkorb nicht gefunden.' });
+            return res.status(404).json({ message: 'Artikel nicht im Warenkorb gefunden.' });
         }
 
         const itemIndex = cart.items.findIndex(item => item._id.toString() === itemId);
