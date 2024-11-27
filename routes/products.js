@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product'); // Product Model importieren
+const Product = require('../models/Product');
+const Category = require('../models/Category');
 const authenticateToken = require('../middleware/authenticateToken');
 const { body, validationResult } = require('express-validator');
-const Category = require('../models/Category');
 
 /**
  * @swagger
@@ -59,25 +59,10 @@ const Category = require('../models/Category');
  *     responses:
  *       201:
  *         description: Produkt erfolgreich hinzugefügt.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Ungültige Eingabe.
- *         content:
- *           application/json:
- *             example:
- *               errors:
- *                 - msg: "Produktname ist erforderlich"
- *                   param: "name"
- *                   location: "body"
  *       403:
  *         description: Keine Berechtigung.
- *         content:
- *           application/json:
- *             example:
- *               message: "Nur Admins dürfen Produkte hinzufügen."
  */
 router.post(
   '/',
@@ -91,17 +76,17 @@ router.post(
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ message: 'Ungültige Eingabedaten', errors: errors.array() });
     }
 
     if (req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Nur Admins dürfen Produkte hinzufügen.' }); // 403
+      return res.status(403).json({ message: 'Nur Admins dürfen Produkte hinzufügen.' });
     }
 
     try {
       const categoryExists = await Category.findById(req.body.category);
       if (!categoryExists) {
-        return res.status(400).json({ message: 'Kategorie existiert nicht.' }); // 400
+        return res.status(400).json({ message: 'Kategorie existiert nicht.' });
       }
 
       const product = new Product(req.body);
@@ -127,29 +112,15 @@ router.post(
  *     responses:
  *       200:
  *         description: Liste der Produkte.
- *         content:
- *           application/json:
- *             example:
- *               - _id: "12345"
- *                 name: "Produktname"
- *                 price: 19.99
- *                 stock: 50
- *                 category: "KategorieID"
- *                 description: "Produktbeschreibung"
- *                 images: ["image1.jpg", "image2.jpg"]
  *       500:
  *         description: Interner Serverfehler.
- *         content:
- *           application/json:
- *             example:
- *               message: "Interner Serverfehler"
  */
 router.get('/', authenticateToken, async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate('category', 'name');
     res.json(products);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 });
 
@@ -171,22 +142,14 @@ router.get('/', authenticateToken, async (req, res) => {
  *     responses:
  *       200:
  *         description: Details des Produkts.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
  *       404:
  *         description: Produkt nicht gefunden.
- *         content:
- *           application/json:
- *             example:
- *               message: "Produkt nicht gefunden"
  *       500:
  *         description: Interner Serverfehler.
  */
 router.get('/:id', authenticateToken, async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('category', 'name');
     if (!product) {
       return res.status(404).json({ message: 'Produkt nicht gefunden' });
     }
@@ -195,6 +158,78 @@ router.get('/:id', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 });
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     summary: Aktualisiert ein Produkt.
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Die ID des zu aktualisierenden Produkts.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       200:
+ *         description: Produkt erfolgreich aktualisiert.
+ *       400:
+ *         description: Ungültige Eingabe.
+ *       403:
+ *         description: Keine Berechtigung.
+ *       404:
+ *         description: Produkt nicht gefunden.
+ */
+router.put(
+  '/:id',
+  authenticateToken,
+  [
+    body('name').optional().notEmpty().withMessage('Produktname darf nicht leer sein'),
+    body('price').optional().isFloat({ gt: 0 }).withMessage('Preis muss größer als 0 sein'),
+    body('stock').optional().isInt({ min: 0 }).withMessage('Lagerbestand muss mindestens 0 sein'),
+    body('category').optional().isMongoId().withMessage('Ungültige Kategorie-ID'),
+  ],
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: 'Ungültige Eingabedaten', errors: errors.array() });
+    }
+
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Nur Admins dürfen Produkte bearbeiten.' });
+    }
+
+    try {
+      if (req.body.category) {
+        const categoryExists = await Category.findById(req.body.category);
+        if (!categoryExists) {
+          return res.status(400).json({ message: 'Kategorie existiert nicht.' });
+        }
+      }
+
+      const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedProduct) {
+        return res.status(404).json({ message: 'Produkt nicht gefunden' });
+      }
+      res.json({
+        message: 'Produkt erfolgreich aktualisiert.',
+        product: updatedProduct,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 /**
  * @swagger
@@ -214,16 +249,8 @@ router.get('/:id', authenticateToken, async (req, res) => {
  *     responses:
  *       200:
  *         description: Produkt erfolgreich gelöscht.
- *         content:
- *           application/json:
- *             example:
- *               message: "Produkt erfolgreich gelöscht."
  *       404:
  *         description: Produkt nicht gefunden.
- *         content:
- *           application/json:
- *             example:
- *               message: "Produkt nicht gefunden"
  *       500:
  *         description: Interner Serverfehler.
  */
@@ -239,7 +266,6 @@ router.delete('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-
 /**
  * @swagger
  * /products/search:
@@ -253,7 +279,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
  *         name: query
  *         schema:
  *           type: string
- *         description: Suchbegriff für den Produktnamen oder die Beschreibung.
+ *         description: Suchbegriff.
  *       - in: query
  *         name: category
  *         schema:
@@ -279,36 +305,18 @@ router.delete('/:id', authenticateToken, async (req, res) => {
  *         schema:
  *           type: integer
  *           default: 1
- *         description: Seite der Ergebnisse (für Pagination).
+ *         description: Seite.
  *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
  *           default: 10
- *         description: Anzahl der Ergebnisse pro Seite.
+ *         description: Ergebnisse pro Seite.
  *     responses:
  *       200:
- *         description: Gefilterte und paginierte Liste der Produkte.
- *         content:
- *           application/json:
- *             example:
- *               products:
- *                 - _id: "12345"
- *                   name: "Produktname"
- *                   price: 19.99
- *                   stock: 50
- *                   category: "KategorieID"
- *                   description: "Produktbeschreibung"
- *                   images: ["image1.jpg", "image2.jpg"]
- *               totalResults: 100
- *               currentPage: 1
- *               totalPages: 10
+ *         description: Gefilterte Produkte.
  *       500:
  *         description: Interner Serverfehler.
- *         content:
- *           application/json:
- *             example:
- *               message: "Interner Serverfehler"
  */
 router.get('/search', authenticateToken, async (req, res) => {
   try {
@@ -324,20 +332,15 @@ router.get('/search', authenticateToken, async (req, res) => {
     if (category) {
       filters.category = category;
     }
-    if (price_min) {
-      filters.price = { ...filters.price, $gte: parseFloat(price_min) };
-    }
-    if (price_max) {
-      filters.price = { ...filters.price, $lte: parseFloat(price_max) };
-    }
-    if (stock) {
-      filters.stock = { $gte: parseInt(stock, 10) };
-    }
+    if (price_min) filters.price = { ...filters.price, $gte: parseFloat(price_min) };
+    if (price_max) filters.price = { ...filters.price, $lte: parseFloat(price_max) };
+    if (stock) filters.stock = { $gte: parseInt(stock, 10) };
 
     const skip = (parseInt(page, 10) - 1) * parseInt(limit, 10);
     const products = await Product.find(filters)
       .skip(skip)
       .limit(parseInt(limit, 10))
+      .populate('category', 'name')
       .sort({ price: 1 });
 
     const totalResults = await Product.countDocuments(filters);
