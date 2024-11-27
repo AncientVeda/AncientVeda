@@ -829,3 +829,49 @@
 {"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:04:52:55 +0000] \"DELETE /orders/6746a5a785cf43a513e6022f HTTP/1.1\" 200 158 \"-\" \"-\"","timestamp":"2024-11-27T04:52:55.616Z"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:04:52:55 +0000] \"DELETE /orders HTTP/1.1\" 200 44 \"-\" \"-\"","timestamp":"2024-11-27T04:52:55.729Z"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:04:52:55 +0000] \"PUT /orders HTTP/1.1\" 200 235 \"-\" \"-\"","timestamp":"2024-11-27T04:52:55.841Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.256Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.348Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"GET /admin/users HTTP/1.1\" 404 66 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.373Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"GET /admin/users HTTP/1.1\" 404 66 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.388Z"}
+{"level":"info","message":"Produkt bearbeitet: 6746ac770c3bc05dbc18ff8e","timestamp":"2024-11-27T05:21:59.423Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"PUT /admin/products/6746ac770c3bc05dbc18ff8e HTTP/1.1\" 200 209 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.426Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6746ac770c3bc05dbc18ff89","timestamp":"2024-11-27T05:21:59.442Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"PUT /admin/products/6746ac770c3bc05dbc18ff8e HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.444Z"}
+{"level":"info","message":"Produkt gelöscht: 6746ac770c3bc05dbc18ff8e","timestamp":"2024-11-27T05:21:59.490Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:21:59 +0000] \"DELETE /admin/products/6746ac770c3bc05dbc18ff8e HTTP/1.1\" 200 43 \"-\" \"-\"","timestamp":"2024-11-27T05:21:59.492Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.501Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.596Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"GET /admin/users HTTP/1.1\" 404 66 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.621Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"GET /admin/users HTTP/1.1\" 404 66 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.636Z"}
+{"level":"info","message":"Produkt bearbeitet: 6746ad6e42d0a6040383e29e","timestamp":"2024-11-27T05:26:06.671Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"PUT /admin/products/6746ad6e42d0a6040383e29e HTTP/1.1\" 200 209 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.673Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6746ad6e42d0a6040383e298","timestamp":"2024-11-27T05:26:06.687Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"PUT /admin/products/6746ad6e42d0a6040383e29e HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.688Z"}
+{"level":"info","message":"Produkt gelöscht: 6746ad6e42d0a6040383e29e","timestamp":"2024-11-27T05:26:06.732Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:26:06 +0000] \"DELETE /admin/products/6746ad6e42d0a6040383e29e HTTP/1.1\" 200 43 \"-\" \"-\"","timestamp":"2024-11-27T05:26:06.734Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.634Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.729Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"GET /admin/users HTTP/1.1\" 404 66 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.754Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"GET /admin/users HTTP/1.1\" 404 66 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.768Z"}
+{"level":"info","message":"Produkt bearbeitet: 6746ae1dc9e05701c27d38d7","timestamp":"2024-11-27T05:29:01.800Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"PUT /admin/products/6746ae1dc9e05701c27d38d7 HTTP/1.1\" 200 209 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.801Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6746ae1dc9e05701c27d38d2","timestamp":"2024-11-27T05:29:01.814Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"PUT /admin/products/6746ae1dc9e05701c27d38d7 HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.815Z"}
+{"level":"info","message":"Produkt gelöscht: 6746ae1dc9e05701c27d38d7","timestamp":"2024-11-27T05:29:01.860Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:29:01 +0000] \"DELETE /admin/products/6746ae1dc9e05701c27d38d7 HTTP/1.1\" 200 43 \"-\" \"-\"","timestamp":"2024-11-27T05:29:01.862Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:48 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-27T05:31:48.941Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.036Z"}
+{"level":"info","message":"Statistiken erfolgreich abgerufen.","timestamp":"2024-11-27T05:31:49.149Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"GET /admin/stats HTTP/1.1\" 200 66 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.151Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6746aec4feadb6b984e0110f","timestamp":"2024-11-27T05:31:49.169Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"GET /admin/stats HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.171Z"}
+{"level":"info","message":"Produkt hinzugefügt: 6746aec5feadb6b984e0111c","timestamp":"2024-11-27T05:31:49.199Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"POST /admin/products HTTP/1.1\" 201 218 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.202Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6746aec4feadb6b984e0110f","timestamp":"2024-11-27T05:31:49.217Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"POST /admin/products HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.218Z"}
+{"level":"info","message":"Produkt bearbeitet: 6746aec5feadb6b984e01114","timestamp":"2024-11-27T05:31:49.251Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"PUT /admin/products/6746aec5feadb6b984e01114 HTTP/1.1\" 200 209 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.253Z"}
+{"level":"info","message":"Produkt gelöscht: 6746aec5feadb6b984e01114","timestamp":"2024-11-27T05:31:49.285Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"DELETE /admin/products/6746aec5feadb6b984e01114 HTTP/1.1\" 200 43 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.287Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6746aec4feadb6b984e0110f","timestamp":"2024-11-27T05:31:49.306Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [27/Nov/2024:05:31:49 +0000] \"DELETE /admin/products/6746aec5feadb6b984e01114 HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-27T05:31:49.308Z"}
