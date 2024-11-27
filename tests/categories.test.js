@@ -56,7 +56,7 @@ describe('Categories Routes', () => {
             .send(invalidCategory);
 
         expect(response.status).toBe(400);
-        expect(response.body.message).toBe('Ungültige Daten'); // Deutsche Nachricht
+        expect(response.body.message).toBe('Ungültige Eingabedaten'); // Deutsche Nachricht
     });
 
     it('GET /categories - sollte alle Kategorien abrufen', async () => {
@@ -97,7 +97,7 @@ describe('Categories Routes', () => {
             .set('Authorization', `Bearer ${authToken}`);
 
         expect(response.status).toBe(200);
-        expect(response.body.message).toBe('Kategorie gelöscht.'); // Deutsche Nachricht
+        expect(response.body.message).toBe('Kategorie erfolgreich gelöscht.'); // Deutsche Nachricht
     });
 
     it('DELETE /categories/:id - sollte 404 zurückgeben, wenn die Kategorie nicht existiert', async () => {
