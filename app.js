@@ -9,11 +9,14 @@ const Sentry = require('@sentry/node');
 const session = require('express-session');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-
 const app = express();
 
-// Middleware
-app.use(Sentry.Handlers.requestHandler());
+// Importiere Routen
+const paymentsRoute = require('./routes/payments');
+const stripeWebhookRoutes = require('./routes/stripeWebhook');
+
+// --- Middleware ---
+app.use(Sentry.Handlers.requestHandler()); // Sentry-Request-Handler
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('combined', {
@@ -28,7 +31,7 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// Swagger
+// --- Swagger ---
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -43,31 +46,29 @@ const swaggerOptions = {
         description: 'Lokaler Server',
       },
     ],
-    tags: [
-      { name: 'Products', description: 'Produktbezogene Endpunkte' },
-      { name: 'Cart', description: 'Warenkorbbezogene Endpunkte' },
-    ],
   },
   apis: ['./routes/*.js'], // Pfad zu deinen Routen-Dateien
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// Routen
+// --- Routen ---
 app.get('/', (req, res) => {
   res.send('Kräuter-Shop Backend läuft!');
 });
+
 app.use('/cart', require('./routes/cart'));
 app.use('/products', require('./routes/products'));
 app.use('/users', require('./routes/users'));
 app.use('/orders', require('./routes/orders'));
-app.use('/payments', require('./routes/payments'));
+app.use('/payments', paymentsRoute); // Registriert Payments-Route
+app.use('/webhook', stripeWebhookRoutes); // Registriert Stripe Webhook
 app.use('/inventory', require('./routes/inventory'));
 app.use('/categories', require('./routes/categories'));
 app.use('/marketing', require('./routes/marketing'));
 app.use('/admin', require('./routes/admin'));
 
-// Fehlerbehandlung
+// --- Fehlerbehandlung ---
 app.use((req, res, next) => {
   res.status(404).json({
     error: {
@@ -77,7 +78,10 @@ app.use((req, res, next) => {
   });
 });
 
+// Sentry-Error-Handler muss am Ende stehen
 app.use(Sentry.Handlers.errorHandler());
+
+// Generische Fehlerbehandlung
 app.use((err, req, res, next) => {
   logger.error({
     message: err.message,

@@ -1,131 +1,118 @@
+require('dotenv').config(); // .env-Datei laden
 const express = require('express');
 const router = express.Router();
-const Payment = require('../models/Payment');
-const Order = require('../models/Order');
-const Cart = require('../models/Cart');
-const authenticateToken = require('../middleware/authenticateToken');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Stripe-API-Schlüssel
+const authenticateToken = require('../middleware/authenticateToken'); // Middleware für Token-Authentifizierung
+const Payment = require('../models/Payment'); // Mongoose-Modell für Zahlungen
+const logger = require('../utils/logger'); // Logging
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Payment:
- *       type: object
- *       properties:
- *         orderId:
- *           type: string
- *           description: Die ID der zugehörigen Bestellung.
- *         amount:
- *           type: number
- *           description: Der zu zahlende Betrag.
- *         paymentMethod:
- *           type: string
- *           description: Die Zahlungsmethode (z. B. Kreditkarte, PayPal).
- *         status:
- *           type: string
- *           enum:
- *             - success
- *             - failed
- *           description: Der Status der Zahlung.
- *         userId:
- *           type: string
- *           description: Die ID des Benutzers, der die Zahlung durchgeführt hat.
- */
+// Route zum Erstellen einer Zahlung
+router.post('/create', authenticateToken, async (req, res) => {
+    const { amount, currency } = req.body;
 
-/**
- * @swagger
- * tags:
- *   name: Payments
- *   description: Endpunkte zur Zahlungsabwicklung
- */
-
-/**
- * @swagger
- * /payments:
- *   post:
- *     summary: Verarbeitet eine Zahlung für eine Bestellung.
- *     tags: [Payments]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               orderId:
- *                 type: string
- *                 description: Die ID der Bestellung.
- *               amount:
- *                 type: number
- *                 description: Der Zahlungsbetrag.
- *               paymentMethod:
- *                 type: string
- *                 description: Die verwendete Zahlungsmethode.
- *     responses:
- *       201:
- *         description: Zahlung erfolgreich verarbeitet.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Erfolgsmeldung.
- *                 payment:
- *                   $ref: '#/components/schemas/Payment'
- *       400:
- *         description: Ungültiger Zahlungsbetrag oder Bestellung nicht gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
-router.post('/', authenticateToken, async (req, res) => {
-    const { orderId, amount, paymentMethod } = req.body;
+    if (!amount || !currency) {
+        return res.status(400).json({ error: 'Betrag und Währung sind erforderlich.' });
+    }
 
     try {
-        // Bestellung prüfen
-        const order = await Order.findById(orderId);
-        if (!order) {
-            return res.status(404).json({ message: 'Bestellung nicht gefunden.' });
-        }
-
-        // Betrag validieren
-        if (order.total_price !== amount) {
-            return res.status(400).json({ message: 'Ungültiger Zahlungsbetrag.' });
-        }
-
-        // Zahlung erstellen
-        const payment = new Payment({
-            orderId,
+        // Erstellen eines PaymentIntents in Stripe
+        const paymentIntent = await stripe.paymentIntents.create({
             amount,
-            paymentMethod,
-            status: 'success',
-            userId: req.user.userId,
+            currency,
+            metadata: { userId: req.user.userId },
         });
 
-        const savedPayment = await payment.save();
+        // Speicherung der Zahlung in der Datenbank
+        const payment = new Payment({
+            userId: req.user.userId,
+            amount,
+            currency,
+            status: 'pending',
+            transactionId: paymentIntent.id,
+        });
 
-        // Bestellstatus aktualisieren
-        order.status = 'paid';
-        await order.save();
+        await payment.save();
+        logger.info(`Zahlung erstellt: ${payment._id}`);
 
-        // Warenkorb des Benutzers leeren
-        const cart = await Cart.findOne({ userId: req.user.userId });
-        if (cart) {
-            cart.items = []; // Alle Artikel entfernen
-            await cart.save(); // Änderungen speichern
+        res.status(201).json({
+            status: 'success',
+            clientSecret: paymentIntent.client_secret,
+            paymentId: payment._id,
+        });
+    } catch (error) {
+        logger.error(`Fehler beim Erstellen der Zahlung: ${error.message}`);
+        res.status(500).json({ error: 'Fehler beim Erstellen der Zahlung', details: error.message });
+    }
+});
+
+// Route zum Abrufen aller Zahlungen eines Nutzers
+router.get('/', authenticateToken, async (req, res) => {
+    try {
+        const payments = await Payment.find({ userId: req.user.userId }).sort({ created_at: -1 });
+        res.status(200).json(payments);
+    } catch (error) {
+        logger.error(`Fehler beim Abrufen der Zahlungen: ${error.message}`);
+        res.status(500).json({ error: 'Fehler beim Abrufen der Zahlungen', details: error.message });
+    }
+});
+
+// Route zum Abrufen des Zahlungsstatus
+router.get('/:paymentId/status', authenticateToken, async (req, res) => {
+    const { paymentId } = req.params;
+
+    try {
+        const payment = await Payment.findById(paymentId);
+        if (!payment) {
+            return res.status(404).json({ error: 'Zahlung nicht gefunden' });
         }
 
-        // Erfolgreiche Antwort
-        res.status(201).json({
-            message: 'Zahlung erfolgreich verarbeitet und Warenkorb geleert.',
-            payment: savedPayment,
-        });
-    } catch (err) {
-        console.error('Fehler beim Verarbeiten der Zahlung:', err.message);
-        res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
+        res.status(200).json({ status: payment.status });
+    } catch (error) {
+        logger.error(`Fehler beim Abrufen des Zahlungsstatus: ${error.message}`);
+        res.status(500).json({ error: 'Fehler beim Abrufen des Zahlungsstatus', details: error.message });
+    }
+});
+
+// Route für Stripe-Webhooks
+router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+    try {
+        const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+
+        // Unterschiedliche Event-Typen behandeln
+        switch (event.type) {
+            case 'payment_intent.succeeded':
+                const paymentIntent = event.data.object;
+                const payment = await Payment.findOne({ transactionId: paymentIntent.id });
+
+                if (payment) {
+                    payment.status = 'success';
+                    await payment.save();
+                    logger.info(`Zahlung erfolgreich: ${payment._id}`);
+                }
+                break;
+
+            case 'payment_intent.payment_failed':
+                const failedIntent = event.data.object;
+                const failedPayment = await Payment.findOne({ transactionId: failedIntent.id });
+
+                if (failedPayment) {
+                    failedPayment.status = 'failed';
+                    await failedPayment.save();
+                    logger.warn(`Zahlung fehlgeschlagen: ${failedPayment._id}`);
+                }
+                break;
+
+            default:
+                logger.info(`Unbehandeltes Event: ${event.type}`);
+        }
+
+        res.status(200).json({ received: true });
+    } catch (error) {
+        logger.error(`Webhook-Fehler: ${error.message}`);
+        res.status(400).json({ error: 'Webhook-Fehler', details: error.message });
     }
 });
 
