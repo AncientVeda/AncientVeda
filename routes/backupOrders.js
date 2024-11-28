@@ -3,6 +3,7 @@ const router = express.Router();
 const Order = require('../models/Order');
 const Cart = require('../models/Cart');
 const authenticateToken = require('../middleware/authenticateToken');
+const Product = require('../models/Product');
 const mongoose = require('mongoose');
 
 /**
@@ -53,28 +54,7 @@ const mongoose = require('mongoose');
  *   description: Endpunkte zur Verwaltung von Bestellungen
  */
 
-/**
- * @swagger
- * /orders:
- *   get:
- *     summary: Ruft alle Bestellungen ab
- *     tags: [Orders]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Eine Liste von Bestellungen.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Order'
- *       404:
- *         description: Keine Bestellungen gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
+// GET /orders - Ruft alle Bestellungen ab
 router.get('/', authenticateToken, async (req, res) => {
   try {
     let orders;
@@ -95,26 +75,7 @@ router.get('/', authenticateToken, async (req, res) => {
   }
 });
 
-/**
- * @swagger
- * /orders:
- *   post:
- *     summary: Erstellt eine neue Bestellung
- *     tags: [Orders]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       201:
- *         description: Bestellung erfolgreich erstellt.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Order'
- *       400:
- *         description: Leerer Warenkorb oder fehlende Preise.
- *       500:
- *         description: Interner Serverfehler.
- */
+// POST /orders - Erstellt eine neue Bestellung
 router.post('/', authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -159,31 +120,7 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
-/**
- * @swagger
- * /orders/{productId}:
- *   delete:
- *     summary: Entfernt ein Produkt aus dem Warenkorb
- *     tags: [Orders]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: productId
- *         required: true
- *         schema:
- *           type: string
- *         description: Die ID des Produkts.
- *     responses:
- *       200:
- *         description: Produkt entfernt.
- *       400:
- *         description: Ungültige Produkt-ID.
- *       404:
- *         description: Produkt oder Warenkorb nicht gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
+// DELETE /orders/:productId - Entfernt ein Produkt aus dem Warenkorb
 router.delete('/:productId', authenticateToken, async (req, res) => {
   const productId = req.params.productId;
 
@@ -211,6 +148,7 @@ router.delete('/:productId', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 });
+
 // PUT /orders - Aktualisiert die Menge eines Produkts im Warenkorb
 router.put('/', authenticateToken, async (req, res) => {
   const { productId, quantity } = req.body;
@@ -244,23 +182,7 @@ router.put('/', authenticateToken, async (req, res) => {
   }
 });
 
-
-/**
- * @swagger
- * /orders:
- *   delete:
- *     summary: Leert den gesamten Warenkorb
- *     tags: [Orders]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Warenkorb geleert.
- *       404:
- *         description: Warenkorb nicht gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
+// DELETE /orders - Leert den gesamten Warenkorb
 router.delete('/', authenticateToken, async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.user.userId });
@@ -279,4 +201,3 @@ router.delete('/', authenticateToken, async (req, res) => {
 });
 
 module.exports = router;
-

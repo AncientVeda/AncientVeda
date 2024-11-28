@@ -6,7 +6,44 @@ const authenticateToken = require('../middleware/authenticateToken'); // Middlew
 const Payment = require('../models/Payment'); // Mongoose-Modell für Zahlungen
 const logger = require('../utils/logger'); // Logging
 
-// Route zum Erstellen einer Zahlung
+/**
+ * @swagger
+ * tags:
+ *   name: Payments
+ *   description: Endpunkte für Zahlungsabwicklung
+ */
+
+/**
+ * @swagger
+ * /payments/create:
+ *   post:
+ *     summary: Erstelle eine neue Zahlung
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amount:
+ *                 type: integer
+ *                 description: Betrag der Zahlung (in Cent)
+ *                 example: 5000
+ *               currency:
+ *                 type: string
+ *                 description: Währung der Zahlung (z. B. USD)
+ *                 example: USD
+ *     responses:
+ *       201:
+ *         description: Zahlung erfolgreich erstellt
+ *       400:
+ *         description: Ungültige Eingabedaten
+ *       500:
+ *         description: Fehler beim Erstellen der Zahlung
+ */
 router.post('/create', authenticateToken, async (req, res) => {
     const { amount, currency } = req.body;
 
@@ -15,14 +52,12 @@ router.post('/create', authenticateToken, async (req, res) => {
     }
 
     try {
-        // Erstellen eines PaymentIntents in Stripe
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency,
             metadata: { userId: req.user.userId },
         });
 
-        // Speicherung der Zahlung in der Datenbank
         const payment = new Payment({
             userId: req.user.userId,
             amount,
@@ -45,7 +80,20 @@ router.post('/create', authenticateToken, async (req, res) => {
     }
 });
 
-// Route zum Abrufen aller Zahlungen eines Nutzers
+/**
+ * @swagger
+ * /payments:
+ *   get:
+ *     summary: Hole alle Zahlungen eines Nutzers
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Erfolgreich alle Zahlungen abgerufen
+ *       500:
+ *         description: Fehler beim Abrufen der Zahlungen
+ */
 router.get('/', authenticateToken, async (req, res) => {
     try {
         const payments = await Payment.find({ userId: req.user.userId }).sort({ created_at: -1 });
@@ -56,7 +104,29 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 });
 
-// Route zum Abrufen des Zahlungsstatus
+/**
+ * @swagger
+ * /payments/{paymentId}/status:
+ *   get:
+ *     summary: Hole den Status einer bestimmten Zahlung
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: paymentId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID der Zahlung
+ *     responses:
+ *       200:
+ *         description: Zahlungsstatus erfolgreich abgerufen
+ *       404:
+ *         description: Zahlung nicht gefunden
+ *       500:
+ *         description: Fehler beim Abrufen des Zahlungsstatus
+ */
 router.get('/:paymentId/status', authenticateToken, async (req, res) => {
     const { paymentId } = req.params;
 
@@ -73,7 +143,18 @@ router.get('/:paymentId/status', authenticateToken, async (req, res) => {
     }
 });
 
-// Route für Stripe-Webhooks
+/**
+ * @swagger
+ * /payments/webhook:
+ *   post:
+ *     summary: Webhook zur Verarbeitung von Stripe-Ereignissen
+ *     tags: [Payments]
+ *     responses:
+ *       200:
+ *         description: Webhook erfolgreich verarbeitet
+ *       400:
+ *         description: Fehler bei der Webhook-Verarbeitung
+ */
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -81,7 +162,6 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
     try {
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 
-        // Unterschiedliche Event-Typen behandeln
         switch (event.type) {
             case 'payment_intent.succeeded':
                 const paymentIntent = event.data.object;
