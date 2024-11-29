@@ -1,66 +1,64 @@
 const express = require('express');
 const router = express.Router();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Stripe API-Schlüssel aus der .env-Datei
-const Payment = require('../models/Payment'); // Mongoose-Modell für Zahlungen
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Stripe SDK
+const Payment = require('../models/Payment'); // Dein Payment-Modell
 
-// Middleware für Stripe Webhook
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-    const sig = req.headers['stripe-signature'];
+// Webhook-Route
+router.post(
+  '/',
+  express.raw({ type: 'application/json' }), // rawBody Middleware, notwendig für Stripe
+  async (req, res) => {
+    const sig = req.headers['stripe-signature']; // Signatur aus Header
+    console.log('Stripe Endpoint Secret:', process.env.STRIPE_ENDPOINT_SECRET); // Debug
 
     try {
-        // Webhook-Event von Stripe validieren
-        const event = stripe.webhooks.constructEvent(
-            req.body,
-            sig,
-            process.env.STRIPE_WEBHOOK_SECRET // Webhook-Secret aus der .env-Datei
-        );
+      // Validierung des Events mit dem Endpoint-Secret
+      const event = stripe.webhooks.constructEvent(
+        req.body, // rawBody der Anfrage
+        sig, // Signatur aus Header
+        process.env.STRIPE_ENDPOINT_SECRET // Signing Secret aus der .env
+      );
 
-        // Unterschiedliche Webhook-Typen behandeln
-        switch (event.type) {
-            case 'payment_intent.succeeded': {
-                const paymentIntent = event.data.object;
-                console.log('Zahlung erfolgreich:', paymentIntent);
+      console.log('Constructed event:', event); // Debug des validierten Events
 
-                // Speicherung der erfolgreichen Zahlung in der Datenbank
-                const newPayment = new Payment({
-                    stripePaymentId: paymentIntent.id,
-                    amount: paymentIntent.amount_received,
-                    currency: paymentIntent.currency,
-                    status: paymentIntent.status,
-                    created: new Date(paymentIntent.created * 1000), // Timestamp in Datum konvertieren
-                });
-                await newPayment.save();
-                console.log('Zahlung in der Datenbank gespeichert:', newPayment);
-                break;
-            }
+      // Prüfe den Event-Typ (z. B. payment_intent.succeeded)
+if (event.type === 'payment_intent.succeeded') {
+  const paymentIntent = event.data.object;
 
-            case 'payment_intent.payment_failed': {
-                const paymentIntent = event.data.object;
-                console.error('Zahlung fehlgeschlagen:', paymentIntent);
+  console.log('Processing payment_intent.succeeded for:', paymentIntent.id);
 
-                // Optionale Speicherung oder Handling für fehlgeschlagene Zahlungen
-                break;
-            }
+  // Suche nach einem bestehenden Payment-Eintrag
+  const existingPayment = await Payment.findOne({ transactionId: paymentIntent.id });
 
-            case 'charge.refunded': {
-                const refund = event.data.object;
-                console.log('Erstattung erfolgt:', refund);
+  if (existingPayment) {
+    console.log('Found existing payment:', existingPayment);
+    // Aktualisiere den Status auf 'succeeded'
+    existingPayment.status = 'succeeded';
+    await existingPayment.save(); // Änderungen speichern
+    console.log('Payment updated to succeeded:', existingPayment);
+  } else {
+    console.log('No existing payment found. Creating new one...');
+    // Erstelle einen neuen Eintrag, wenn keiner existiert
+    await Payment.create({
+      transactionId: paymentIntent.id,
+      amount: paymentIntent.amount_received,
+      currency: paymentIntent.currency,
+      userId: paymentIntent.metadata.userId,
+      status: 'succeeded',
+    });
+    console.log('New payment created with status succeeded.');
+  }
+}
 
-                // Logik für Erstattungen implementieren
-                break;
-            }
-
-            default:
-                console.log(`Unbehandelter Event-Typ: ${event.type}`);
-        }
-
-        // Erfolgsantwort an Stripe
-        res.status(200).send('Webhook erfolgreich verarbeitet');
+      res.status(200).send('Webhook erfolgreich verarbeitet');
     } catch (err) {
-        console.error(`Fehler beim Verarbeiten des Webhooks: ${err.message}`);
-        res.status(400).send(`Webhook-Fehler: ${err.message}`);
+      // Fehlerhandling, falls die Signaturprüfung fehlschlägt oder ein anderer Fehler auftritt
+      console.error(`Fehler beim Verarbeiten des Webhooks: ${err.message}`);
+      console.error(err.stack);
+      res.status(400).send(`Webhook-Fehler: ${err.message}`);
     }
-});
+  }
+);
 
 module.exports = router;
 

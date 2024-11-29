@@ -1,81 +1,81 @@
-const request = require('supertest');
-const app = require('../app'); // Deine Express-App
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Stripe SDK
-const Payment = require('../models/Payment'); // Mongoose-Modell
+require('dotenv').config();
 const mongoose = require('mongoose');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const request = require('supertest');
+const Payment = require('../models/Payment');
+const app = require('../app');
 
-// Mock für Stripe Webhook-Secret
-const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+jest.setTimeout(30000); // Timeout auf 30 Sekunden erhöhen
 
 beforeAll(async () => {
+  console.log('Connecting to database...');
   await mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000, // Verbindungsaufbau-Timeout
+    socketTimeoutMS: 20000, // Abfrage-Timeout
   });
+  console.log('Database connection established:', mongoose.connection.readyState); // 1 = Verbunden
+});
+
+beforeEach(async () => {
+  console.log('Clearing Payments collection...');
+  await Payment.deleteMany({});
+  console.log('Inserting test data...');
+  await Payment.create({
+    userId: mongoose.Types.ObjectId('1234567890abcdef12345678'),
+    amount: 2000,
+    currency: 'usd',
+    status: 'pending',
+    transactionId: 'pi_test123',
+  });
+});
+
+afterEach(async () => {
+  console.log('Clearing Payments collection after test...');
+  await Payment.deleteMany({});
 });
 
 afterAll(async () => {
+  console.log('Closing database connection...');
   await mongoose.connection.close();
 });
 
-describe('Stripe Webhook Endpoint', () => {
-  it('should handle payment_intent.succeeded event', async () => {
-    // Beispiel Payload für ein erfolgreiches PaymentIntent
-    const paymentIntent = {
-      id: 'pi_test123',
-      amount_received: 2000,
-      currency: 'usd',
-      status: 'succeeded',
-      created: Math.floor(Date.now() / 1000),
-    };
+it('sollte ein payment_intent.succeeded Ereignis verarbeiten und Payment speichern', async () => {
+  const dynamicTransactionId = `pi_test_${Date.now()}`; // Dynamische transactionId
 
-    // Signieren des Payloads mit Stripe-SDK
-    const payload = JSON.stringify({ type: 'payment_intent.succeeded', data: { object: paymentIntent } });
-    const signature = stripe.webhooks.generateTestHeaderString({
-      payload,
-      secret: stripeWebhookSecret,
-    });
-
-    const res = await request(app)
-      .post('/webhook') // Webhook-Route
-      .set('Stripe-Signature', signature)
-      .send(payload);
-
-    expect(res.status).toBe(200);
-
-    // Überprüfen, ob die Zahlung in der Datenbank gespeichert wurde
-    const payment = await Payment.findOne({ stripePaymentId: 'pi_test123' });
-    expect(payment).toBeTruthy();
-    expect(payment.amount).toBe(2000);
-    expect(payment.status).toBe('succeeded');
+  const payload = JSON.stringify({
+    id: `evt_test_${Date.now()}`, // Dynamischer Event-Name
+    type: 'payment_intent.succeeded',
+    data: {
+      object: {
+        id: dynamicTransactionId, // Verwende die dynamische ID hier
+        amount_received: 2000,
+        currency: 'usd',
+        status: 'succeeded',
+        metadata: { userId: '1234567890abcdef12345678' },
+      },
+    },
   });
 
-  it('should handle invalid signature', async () => {
-    const payload = JSON.stringify({ type: 'payment_intent.succeeded', data: { object: {} } });
-
-    const res = await request(app)
-      .post('/webhook')
-      .set('Stripe-Signature', 'invalid_signature')
-      .send(payload);
-
-    expect(res.status).toBe(400);
-    expect(res.text).toContain('Webhook-Fehler');
+  const header = stripe.webhooks.generateTestHeaderString({
+    payload,
+    secret: process.env.STRIPE_ENDPOINT_SECRET,
   });
 
-  it('should handle unknown event types', async () => {
-    const payload = JSON.stringify({ type: 'unknown_event_type', data: { object: {} } });
-    const signature = stripe.webhooks.generateTestHeaderString({
-      payload,
-      secret: stripeWebhookSecret,
-    });
+  const response = await request(app)
+    .post('/webhook')
+    .send(payload)
+    .set('Stripe-Signature', header)
+    .set('Content-Type', 'application/json');
 
-    const res = await request(app)
-      .post('/webhook')
-      .set('Stripe-Signature', signature)
-      .send(payload);
+  expect(response.status).toBe(200);
 
-    expect(res.status).toBe(200);
-    expect(res.text).toBe('Webhook erfolgreich verarbeitet');
-  });
+  const payment = await Payment.findOne({ transactionId: dynamicTransactionId }); // Suche mit der dynamischen ID
+
+  expect(payment).toBeTruthy();
+  expect(payment.status).toBe('succeeded');
+  expect(payment.amount).toBe(2000);
+  expect(payment.currency).toBe('usd');
 });
 

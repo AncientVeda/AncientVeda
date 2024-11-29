@@ -1130,3 +1130,479 @@
 {"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:32:47 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T11:32:47.012Z"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:32:47 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T11:32:47.032Z"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:32:47 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T11:32:47.037Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:37:35 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-28T11:37:35.088Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:37:35 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-28T11:37:35.185Z"}
+{"level":"info","message":"Zahlung erstellt: 674855ff693fd00d962e7808","timestamp":"2024-11-28T11:37:35.726Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:37:35 +0000] \"POST /payments/create HTTP/1.1\" 201 137 \"-\" \"-\"","timestamp":"2024-11-28T11:37:35.728Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:37:35 +0000] \"POST /payments/create HTTP/1.1\" 400 50 \"-\" \"-\"","timestamp":"2024-11-28T11:37:35.743Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:37:35 +0000] \"GET /payments HTTP/1.1\" 200 216 \"-\" \"-\"","timestamp":"2024-11-28T11:37:35.784Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:37:35 +0000] \"GET /payments/674855ff693fd00d962e780c/status HTTP/1.1\" 200 20 \"-\" \"-\"","timestamp":"2024-11-28T11:37:35.829Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:08 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-28T11:38:08.295Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:08 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-28T11:38:08.390Z"}
+{"level":"error","message":"Fehler beim Erstellen der Zahlung: Payment validation failed: currency: `usd` is not a valid enum value for path `currency`.","timestamp":"2024-11-28T11:38:08.877Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:08 +0000] \"POST /payments/create HTTP/1.1\" 500 147 \"-\" \"-\"","timestamp":"2024-11-28T11:38:08.880Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:08 +0000] \"POST /payments/create HTTP/1.1\" 400 50 \"-\" \"-\"","timestamp":"2024-11-28T11:38:08.902Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:08 +0000] \"GET /payments HTTP/1.1\" 200 2 \"-\" \"-\"","timestamp":"2024-11-28T11:38:08.946Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:37 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-28T11:38:37.519Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:37 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-28T11:38:37.617Z"}
+{"level":"info","message":"Zahlung erstellt: 6748563ecc65c135318e5fae","timestamp":"2024-11-28T11:38:38.089Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:38 +0000] \"POST /payments/create HTTP/1.1\" 201 137 \"-\" \"-\"","timestamp":"2024-11-28T11:38:38.091Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:38 +0000] \"POST /payments/create HTTP/1.1\" 400 50 \"-\" \"-\"","timestamp":"2024-11-28T11:38:38.106Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:38 +0000] \"GET /payments HTTP/1.1\" 200 216 \"-\" \"-\"","timestamp":"2024-11-28T11:38:38.146Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:38:38 +0000] \"GET /payments/6748563ecc65c135318e5fb2/status HTTP/1.1\" 200 20 \"-\" \"-\"","timestamp":"2024-11-28T11:38:38.194Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:46:56 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T11:46:56.463Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:46:56 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T11:46:56.501Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:11:46:56 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T11:46:56.519Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:11:51:08 +0000] \"GET /webhook HTTP/1.1\" 404 62 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T11:51:08.560Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:11:51:31 +0000] \"GET /webhook HTTP/1.1\" 404 62 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T11:51:31.716Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:05:45 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:05:45.440Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:05:45 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:05:45.480Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:05:45 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:05:45.524Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:08:40 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:08:40.806Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:08:40 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:08:40.853Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:08:40 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:08:40.882Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:23 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:09:23.554Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:23 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:09:23.592Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:23 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:09:23.628Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:57 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-28T13:09:57.435Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:57 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-28T13:09:57.534Z"}
+{"level":"info","message":"Zahlung erstellt: 67486ba6817282bd8abd84e5","timestamp":"2024-11-28T13:09:58.084Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:58 +0000] \"POST /payments/create HTTP/1.1\" 201 137 \"-\" \"-\"","timestamp":"2024-11-28T13:09:58.086Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:58 +0000] \"POST /payments/create HTTP/1.1\" 400 50 \"-\" \"-\"","timestamp":"2024-11-28T13:09:58.102Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:58 +0000] \"GET /payments HTTP/1.1\" 200 216 \"-\" \"-\"","timestamp":"2024-11-28T13:09:58.146Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:09:58 +0000] \"GET /payments/67486ba6817282bd8abd84e9/status HTTP/1.1\" 200 20 \"-\" \"-\"","timestamp":"2024-11-28T13:09:58.190Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:10:45 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:10:45.952Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:10:46 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:10:46.108Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:13:10:46 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T13:10:46.140Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:13:16:10 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T13:16:10.013Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:20:26 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:20:26.129Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:28:07 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T15:28:07.039Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:28:07 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T15:28:07.213Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:28:07 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-28T15:28:07.255Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:28:13 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:28:13.542Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:31:22 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:31:22.497Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:32:34 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:32:34.771Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:35:22 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:35:22.982Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:35:38 +0000] \"POST /webhook HTTP/1.1\" 400 446 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:35:38.661Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:35:53 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:35:53.522Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:35:53 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:35:53.782Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:35:53 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:35:53.821Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:36:59 +0000] \"POST /webhook HTTP/1.1\" 400 446 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:36:59.315Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:40:05 +0000] \"POST /webhook HTTP/1.1\" 400 446 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:40:05.581Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:40:30 +0000] \"POST /webhook HTTP/1.1\" 400 446 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:40:30.590Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:40:37 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:40:37.887Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:40:38 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:40:38.056Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:40:38 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:40:38.099Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:50:47 +0000] \"POST /webhook HTTP/1.1\" 400 446 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:50:47.325Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:50:53 +0000] \"POST /webhook HTTP/1.1\" 400 446 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:50:53.895Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:15:52:53 +0000] \"POST /webhook HTTP/1.1\" 400 449 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T15:52:53.070Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:53:08 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:53:08.203Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:53:08 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:53:08.370Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:15:53:08 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T15:53:08.421Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:14:02 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:14:02.158Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:14:02 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:14:02.336Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:14:02 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:14:02.394Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:17:31 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:17:31.035Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:17:31 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:17:31.212Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:17:31 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:17:31.259Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:16:18:00 +0000] \"POST /webhook HTTP/1.1\" 400 449 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T16:18:00.114Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:16:19:47 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"Stripe/1.0 (+https://stripe.com/docs/webhooks)\"","timestamp":"2024-11-28T16:19:47.437Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:16:19:47 +0000] \"POST /webhook HTTP/1.1\" 400 193 \"-\" \"Stripe/1.0 (+https://stripe.com/docs/webhooks)\"","timestamp":"2024-11-28T16:19:47.526Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:16:19:47 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"Stripe/1.0 (+https://stripe.com/docs/webhooks)\"","timestamp":"2024-11-28T16:19:47.562Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:16:19:49 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"Stripe/1.0 (+https://stripe.com/docs/webhooks)\"","timestamp":"2024-11-28T16:19:49.939Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:16:20:07 +0000] \"POST /webhook HTTP/1.1\" 400 449 \"-\" \"curl/8.7.1\"","timestamp":"2024-11-28T16:20:07.235Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:20:15 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:20:15.673Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:20:15 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:20:15.842Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:20:15 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:20:15.889Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:47:27 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:47:27.450Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:47:27 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:47:27.523Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:47:27 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T16:47:27.563Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:49:06 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T16:49:06.678Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:49:11 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T16:49:11.723Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:49:16 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T16:49:16.750Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:51:36 +0000] \"POST /webhook HTTP/1.1\" 400 193 \"-\" \"-\"","timestamp":"2024-11-28T16:51:36.742Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:51:46 +0000] \"POST /webhook HTTP/1.1\" 400 193 \"-\" \"-\"","timestamp":"2024-11-28T16:51:46.788Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:51:56 +0000] \"POST /webhook HTTP/1.1\" 400 193 \"-\" \"-\"","timestamp":"2024-11-28T16:51:56.817Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:54:22 +0000] \"POST /webhook HTTP/1.1\" 400 193 \"-\" \"-\"","timestamp":"2024-11-28T16:54:22.543Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:55:41 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T16:55:41.258Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:55:51 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T16:55:51.310Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:56:01 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T16:56:01.340Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:16:59:14 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T16:59:14.328Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:01:12 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T17:01:12.129Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:05:05 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T17:05:05.024Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:16:24 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T17:16:24.281Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:25:52 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T17:25:52.302Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:32:30 +0000] \"POST /webhook HTTP/1.1\" 400 156 \"-\" \"-\"","timestamp":"2024-11-28T17:32:30.688Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:37:00 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T17:37:00.872Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:39:04 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T17:39:04.261Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:41:03 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T17:41:03.151Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:41:16 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T17:41:16.754Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:17:41:37 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T17:41:37.055Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:22:46:12 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T22:46:12.177Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:22:47:34 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T22:47:34.796Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:22:52:03 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T22:52:03.292Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:22:53:35 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T22:53:35.130Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:22:55:08 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T22:55:08.746Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:04:35 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T23:04:35.107Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:05:51 +0000] \"POST /webhook HTTP/1.1\" 400 51 \"-\" \"-\"","timestamp":"2024-11-28T23:05:51.575Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:11:20 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:11:20.342Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:14:47 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:14:47.867Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:16:32 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:16:32.266Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:17:23 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:17:23.412Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:17:59 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:17:59.454Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:18:19 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:18:19.500Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:18:57 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:18:57.596Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:23:37 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:23:37.117Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:24:30 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:24:30.111Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:32:09 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-28T23:32:09.452Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:23:32:13 +0000] \"GET /api-docs/ HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T23:32:13.454Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:23:32:13 +0000] \"GET /api-docs/swagger-ui.css HTTP/1.1\" 304 - \"http://localhost:5001/api-docs/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T23:32:13.474Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:23:32:13 +0000] \"GET /api-docs/swagger-ui-standalone-preset.js HTTP/1.1\" 304 - \"http://localhost:5001/api-docs/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T23:32:13.475Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:23:32:13 +0000] \"GET /api-docs/swagger-ui-init.js HTTP/1.1\" 304 - \"http://localhost:5001/api-docs/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T23:32:13.481Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:23:32:13 +0000] \"GET /api-docs/swagger-ui-bundle.js HTTP/1.1\" 304 - \"http://localhost:5001/api-docs/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T23:32:13.482Z"}
+{"level":"info","message":"::1 - - [28/Nov/2024:23:32:13 +0000] \"GET /api-docs/favicon-32x32.png HTTP/1.1\" 304 - \"http://localhost:5001/api-docs/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36\"","timestamp":"2024-11-28T23:32:13.951Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:35:56 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T23:35:56.624Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:36:41 +0000] \"POST /webhook HTTP/1.1\" 400 70 \"-\" \"-\"","timestamp":"2024-11-28T23:36:41.075Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [28/Nov/2024:23:38:38 +0000] \"POST /webhook HTTP/1.1\" 400 62 \"-\" \"-\"","timestamp":"2024-11-28T23:38:38.993Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:30:29 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-29T09:30:29.134Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:31:55 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-29T09:31:55.621Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:32:30 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-29T09:32:30.406Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:35:00 +0000] \"POST /webhook HTTP/1.1\" 404 62 \"-\" \"-\"","timestamp":"2024-11-29T09:35:00.114Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:35:50 +0000] \"POST /webhook HTTP/1.1\" 400 162 \"-\" \"-\"","timestamp":"2024-11-29T09:35:50.203Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:40:53 +0000] \"POST /webhook HTTP/1.1\" 400 162 \"-\" \"-\"","timestamp":"2024-11-29T09:40:53.293Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:41:49 +0000] \"POST /webhook HTTP/1.1\" 400 162 \"-\" \"-\"","timestamp":"2024-11-29T09:41:49.828Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:49:37 +0000] \"POST /webhook HTTP/1.1\" 400 107 \"-\" \"-\"","timestamp":"2024-11-29T09:49:37.474Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:09:55:53 +0000] \"POST /webhook HTTP/1.1\" 400 107 \"-\" \"-\"","timestamp":"2024-11-29T09:55:53.556Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:01:46 +0000] \"POST /webhook HTTP/1.1\" 400 107 \"-\" \"-\"","timestamp":"2024-11-29T10:01:46.686Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:02:04 +0000] \"POST /webhook HTTP/1.1\" 400 107 \"-\" \"-\"","timestamp":"2024-11-29T10:02:04.363Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:05:32 +0000] \"POST /webhook HTTP/1.1\" 400 140 \"-\" \"-\"","timestamp":"2024-11-29T10:05:32.353Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:09:07 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:09:07.761Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:10:39 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:10:39.833Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:15:07 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:15:07.480Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:15:19 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:15:19.306Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:18:01 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:18:01.900Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.132Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.143Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /categories HTTP/1.1\" 201 166 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.202Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.232Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.255Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /categories HTTP/1.1\" 400 136 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.254Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.265Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.311Z"}
+{"level":"error","message":"E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"admin@example.com\" }","method":"POST","path":"/users/register","stack":"MongoServerError: E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"admin@example.com\" }\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/operations/insert.ts:85:25\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection_pool.ts:569:13\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:363:13\n    at handleOperationResult (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:496:14)\n    at Connection.onMessage (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:461:5)\n    at MessageStream.<anonymous> (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:241:56)\n    at MessageStream.emit (node:events:518:28)\n    at MessageStream.emit (node:domain:489:12)\n    at processIncomingData (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:188:12)\n    at MessageStream._write (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:69:5)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:510:10)\n    at TLSSocket.ondata (node:internal/streams/readable:1009:22)\n    at TLSSocket.emit (node:events:518:28)\n    at TLSSocket.emit (node:domain:489:12)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at TLSSocket.Readable.push (node:internal/streams/readable:392:5)\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23)\n    at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17)","timestamp":"2024-11-29T10:20:22.299Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/register HTTP/1.1\" 500 138 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.324Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:22 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:20:22.328Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /marketing HTTP/1.1\" 200 2 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.048Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /categories HTTP/1.1\" 200 348 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.050Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /categories/674995641dc5ce37d54f7c4a HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.088Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /marketing HTTP/1.1\" 201 297 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.094Z"}
+{"level":"error","message":"E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"testuser@example.com\" }","method":"POST","path":"/users/register","stack":"MongoServerError: E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"testuser@example.com\" }\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/operations/insert.ts:85:25\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection_pool.ts:569:13\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:363:13\n    at handleOperationResult (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:496:14)\n    at Connection.onMessage (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:461:5)\n    at MessageStream.<anonymous> (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:241:56)\n    at MessageStream.emit (node:events:518:28)\n    at MessageStream.emit (node:domain:489:12)\n    at processIncomingData (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:188:12)\n    at MessageStream._write (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:69:5)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:510:10)\n    at TLSSocket.ondata (node:internal/streams/readable:1009:22)\n    at TLSSocket.emit (node:events:518:28)\n    at TLSSocket.emit (node:domain:489:12)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at TLSSocket.Readable.push (node:internal/streams/readable:392:5)\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23)\n    at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17)","timestamp":"2024-11-29T10:20:23.103Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /users/register HTTP/1.1\" 500 141 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.124Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /categories/674995671dc5ce37d54f7c52 HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.126Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /users/protected-data HTTP/1.1\" 200 217 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.135Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.154Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /marketing/67499567deea16798716cfe8 HTTP/1.1\" 200 186 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.154Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.156Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.158Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.160Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.163Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /cart HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.172Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /inventory HTTP/1.1\" 404 64 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.176Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /users/protected-data HTTP/1.1\" 401 39 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.180Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"DELETE /categories/674995641dc5ce37d54f7c4a HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.180Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /users/protected-data HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.197Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"DELETE /categories/674995671dc5ce37d54f7c55 HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.205Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /orders HTTP/1.1\" 201 317 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.214Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /inventory HTTP/1.1\" 404 64 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.218Z"}
+{"level":"info","message":"Kategorie hinzugefügt: 67499567a7912601a29ad8b7","timestamp":"2024-11-29T10:20:23.224Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.230Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /admin/categories HTTP/1.1\" 201 176 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.231Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"DELETE /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.240Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"DELETE /marketing/67499567deea16798716cfeb HTTP/1.1\" 200 40 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.246Z"}
+{"level":"info","message":"Kategorien erfolgreich abgerufen.","timestamp":"2024-11-29T10:20:23.271Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /admin/categories HTTP/1.1\" 200 346 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.274Z"}
+{"level":"info","message":"Statistiken erfolgreich abgerufen.","timestamp":"2024-11-29T10:20:23.293Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /admin/stats HTTP/1.1\" 200 66 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.298Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 67499566eef465cc239a75c2","timestamp":"2024-11-29T10:20:23.316Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /admin/stats HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.320Z"}
+{"level":"info","message":"Kategorie bearbeitet: 67499567a7912601a29ad8b7","timestamp":"2024-11-29T10:20:23.326Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /admin/categories/67499567a7912601a29ad8b7 HTTP/1.1\" 200 184 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.328Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"GET /orders HTTP/1.1\" 200 264 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.342Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"DELETE /admin/categories/67499567a7912601a29ad8b7 HTTP/1.1\" 404 38 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.353Z"}
+{"level":"info","message":"Produkt hinzugefügt: 67499567eef465cc239a75cf","timestamp":"2024-11-29T10:20:23.355Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /admin/products HTTP/1.1\" 201 218 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.358Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 67499566eef465cc239a75c2","timestamp":"2024-11-29T10:20:23.374Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /admin/products HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.377Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 67499566eef465cc239a75c2","timestamp":"2024-11-29T10:20:23.378Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"POST /admin/categories HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.382Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 67499566eef465cc239a75c2","timestamp":"2024-11-29T10:20:23.393Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /admin/categories/67499567a7912601a29ad8b7 HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.395Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"PUT /admin/products/67499567eef465cc239a75c7 HTTP/1.1\" 404 36 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.411Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 67499566eef465cc239a75c2","timestamp":"2024-11-29T10:20:23.413Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:23 +0000] \"DELETE /admin/categories/67499567a7912601a29ad8b7 HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:23.418Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"DELETE /admin/products/67499567eef465cc239a75c7 HTTP/1.1\" 404 36 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.019Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"GET /orders HTTP/1.1\" 404 42 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.020Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.024Z"}
+{"level":"info","message":"Zahlung erstellt: 67499567952aa43fb5921af2","timestamp":"2024-11-29T10:20:24.023Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /payments/create HTTP/1.1\" 201 137 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.028Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 67499566eef465cc239a75c2","timestamp":"2024-11-29T10:20:24.032Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"DELETE /admin/products/67499567eef465cc239a75c7 HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.036Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /payments/create HTTP/1.1\" 400 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.040Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.041Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /cart HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.047Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"GET /payments HTTP/1.1\" 200 216 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.081Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"GET /payments/67499568952aa43fb5921af6/status HTTP/1.1\" 200 20 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.117Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /orders HTTP/1.1\" 400 76 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.124Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 201 282 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.160Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 400 92 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.171Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 400 138 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.182Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 400 133 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.189Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.206Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.223Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.226Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"DELETE /orders/674995688c75a08d205aaae2 HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.227Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.243Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /cart HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.252Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"DELETE /orders HTTP/1.1\" 200 44 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.372Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:24 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:20:24.447Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"PUT /orders HTTP/1.1\" 200 235 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.135Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.174Z"}
+{"level":"warn","message":"Product not found.","productId":"67499568f97bcbc1d3b014f5","timestamp":"2024-11-29T10:20:25.189Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /cart HTTP/1.1\" 404 32 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.192Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.198Z"}
+{"level":"info","message":"Empty cart retrieved.","timestamp":"2024-11-29T10:20:25.210Z","userId":"67499568f97bcbc1d3b014f8"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"GET /cart HTTP/1.1\" 200 33 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.211Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.216Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.233Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 400 183 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.238Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.375Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.464Z"}
+{"level":"info","message":"Empty cart retrieved.","timestamp":"2024-11-29T10:20:25.481Z","userId":"67499569f97bcbc1d3b01505"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"GET /cart HTTP/1.1\" 200 33 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.482Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.575Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.666Z"}
+{"level":"info","message":"Added new product to cart.","productId":"67499569f97bcbc1d3b0150e","quantity":2,"timestamp":"2024-11-29T10:20:25.698Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.717Z"}
+{"level":"info","message":"Cart successfully cleared.","timestamp":"2024-11-29T10:20:25.755Z","userId":"67499569f97bcbc1d3b01505"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"DELETE /cart HTTP/1.1\" 200 40 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.757Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.844Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.932Z"}
+{"level":"info","message":"Added new product to cart.","productId":"67499569f97bcbc1d3b0151f","quantity":2,"timestamp":"2024-11-29T10:20:25.960Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:25 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:20:25.976Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:26 +0000] \"DELETE /cart/67499569f97bcbc1d3b01526 HTTP/1.1\" 200 140 \"-\" \"-\"","timestamp":"2024-11-29T10:20:26.012Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:26 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:20:26.098Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:26 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:20:26.191Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:20:26 +0000] \"DELETE /cart/6749956af97bcbc1d3b01534 HTTP/1.1\" 404 50 \"-\" \"-\"","timestamp":"2024-11-29T10:20:26.214Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.208Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.305Z"}
+{"level":"info","message":"Statistiken erfolgreich abgerufen.","timestamp":"2024-11-29T10:22:19.439Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"GET /admin/stats HTTP/1.1\" 200 66 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.441Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 674995dbfe662cc76385c0c6","timestamp":"2024-11-29T10:22:19.462Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"GET /admin/stats HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.463Z"}
+{"level":"info","message":"Produkt hinzugefügt: 674995dbfe662cc76385c0d3","timestamp":"2024-11-29T10:22:19.495Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"POST /admin/products HTTP/1.1\" 201 218 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.497Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 674995dbfe662cc76385c0c6","timestamp":"2024-11-29T10:22:19.509Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"POST /admin/products HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.510Z"}
+{"level":"info","message":"Produkt bearbeitet: 674995dbfe662cc76385c0cb","timestamp":"2024-11-29T10:22:19.540Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"PUT /admin/products/674995dbfe662cc76385c0cb HTTP/1.1\" 200 209 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.541Z"}
+{"level":"info","message":"Produkt gelöscht: 674995dbfe662cc76385c0cb","timestamp":"2024-11-29T10:22:19.576Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"DELETE /admin/products/674995dbfe662cc76385c0cb HTTP/1.1\" 200 43 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.578Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 674995dbfe662cc76385c0c6","timestamp":"2024-11-29T10:22:19.597Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:19 +0000] \"DELETE /admin/products/674995dbfe662cc76385c0cb HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:22:19.599Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:40 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:40.751Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:40 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:40.854Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674995f0ae78a6e222d3c9ea","quantity":2,"timestamp":"2024-11-29T10:22:40.894Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:40 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:22:40.912Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.016Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.113Z"}
+{"level":"warn","message":"Product not found.","productId":"674995f1ae78a6e222d3c9fc","timestamp":"2024-11-29T10:22:41.132Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /cart HTTP/1.1\" 404 32 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.134Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.223Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.323Z"}
+{"level":"warn","message":"Invalid productId or quantity.","timestamp":"2024-11-29T10:22:41.337Z","userId":"67499569f97bcbc1d3b01505"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /cart HTTP/1.1\" 400 62 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.338Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.424Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.519Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674995f1ae78a6e222d3ca0c","quantity":2,"timestamp":"2024-11-29T10:22:41.551Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.569Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"GET /cart HTTP/1.1\" 200 170 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.628Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.715Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.812Z"}
+{"level":"info","message":"Empty cart retrieved.","timestamp":"2024-11-29T10:22:41.834Z","userId":"67499569f97bcbc1d3b01505"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"GET /cart HTTP/1.1\" 200 33 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.835Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:41 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:41.927Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.020Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674995f1ae78a6e222d3ca27","quantity":2,"timestamp":"2024-11-29T10:22:42.050Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.065Z"}
+{"level":"info","message":"Cart successfully cleared.","timestamp":"2024-11-29T10:22:42.110Z","userId":"67499569f97bcbc1d3b01505"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"DELETE /cart HTTP/1.1\" 200 40 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.112Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.199Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.307Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674995f2ae78a6e222d3ca38","quantity":2,"timestamp":"2024-11-29T10:22:42.336Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.352Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"DELETE /cart/674995f2ae78a6e222d3ca3f HTTP/1.1\" 200 140 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.395Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.491Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.584Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:22:42 +0000] \"DELETE /cart/674995f2ae78a6e222d3ca4d HTTP/1.1\" 404 50 \"-\" \"-\"","timestamp":"2024-11-29T10:22:42.608Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:24 +0000] \"POST /users/register HTTP/1.1\" 201 279 \"-\" \"-\"","timestamp":"2024-11-29T10:23:24.367Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:24 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:23:24.465Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:24 +0000] \"GET /inventory HTTP/1.1\" 404 64 \"-\" \"-\"","timestamp":"2024-11-29T10:23:24.470Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:24 +0000] \"POST /inventory HTTP/1.1\" 404 64 \"-\" \"-\"","timestamp":"2024-11-29T10:23:24.481Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:24 +0000] \"PUT /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:23:24.485Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:24 +0000] \"DELETE /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:23:24.489Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:49 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:23:49.497Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:49 +0000] \"POST /orders HTTP/1.1\" 201 317 \"-\" \"-\"","timestamp":"2024-11-29T10:23:49.689Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:49 +0000] \"GET /orders HTTP/1.1\" 200 264 \"-\" \"-\"","timestamp":"2024-11-29T10:23:49.791Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:49 +0000] \"GET /orders HTTP/1.1\" 404 42 \"-\" \"-\"","timestamp":"2024-11-29T10:23:49.894Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:49 +0000] \"POST /orders HTTP/1.1\" 400 76 \"-\" \"-\"","timestamp":"2024-11-29T10:23:49.995Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:50 +0000] \"DELETE /orders/67499636a9af86ffa2ff7fcb HTTP/1.1\" 200 158 \"-\" \"-\"","timestamp":"2024-11-29T10:23:50.113Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:50 +0000] \"DELETE /orders HTTP/1.1\" 200 44 \"-\" \"-\"","timestamp":"2024-11-29T10:23:50.236Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:23:50 +0000] \"PUT /orders HTTP/1.1\" 200 235 \"-\" \"-\"","timestamp":"2024-11-29T10:23:50.348Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:16 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:24:16.643Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:16 +0000] \"POST /products HTTP/1.1\" 201 340 \"-\" \"-\"","timestamp":"2024-11-29T10:24:16.692Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:16 +0000] \"POST /products HTTP/1.1\" 400 161 \"-\" \"-\"","timestamp":"2024-11-29T10:24:16.712Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:34 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:24:34.814Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:56 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:24:56.938Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:56 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:24:56.961Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:57 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:24:57.048Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:24:57 +0000] \"POST /users/login HTTP/1.1\" 400 183 \"-\" \"-\"","timestamp":"2024-11-29T10:24:57.053Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.533Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"POST /users/login HTTP/1.1\" 200 238 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.623Z"}
+{"level":"info","message":"Kategorie hinzugefügt: 6749968d4a4ff8102d5276af","timestamp":"2024-11-29T10:25:17.652Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"POST /admin/categories HTTP/1.1\" 201 176 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.654Z"}
+{"level":"info","message":"Kategorien erfolgreich abgerufen.","timestamp":"2024-11-29T10:25:17.700Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"GET /admin/categories HTTP/1.1\" 200 178 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.702Z"}
+{"level":"info","message":"Kategorie bearbeitet: 6749968d4a4ff8102d5276af","timestamp":"2024-11-29T10:25:17.736Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"PUT /admin/categories/6749968d4a4ff8102d5276af HTTP/1.1\" 200 184 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.738Z"}
+{"level":"info","message":"Kategorie gelöscht: 6749968d4a4ff8102d5276af","timestamp":"2024-11-29T10:25:17.772Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"DELETE /admin/categories/6749968d4a4ff8102d5276af HTTP/1.1\" 200 45 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.774Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6749968d4a4ff8102d5276ab","timestamp":"2024-11-29T10:25:17.786Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"POST /admin/categories HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.787Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6749968d4a4ff8102d5276ab","timestamp":"2024-11-29T10:25:17.800Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"PUT /admin/categories/6749968d4a4ff8102d5276af HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.801Z"}
+{"level":"warn","message":"Zugriffsversuch durch Nicht-Admin: 6749968d4a4ff8102d5276ab","timestamp":"2024-11-29T10:25:17.820Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:17 +0000] \"DELETE /admin/categories/6749968d4a4ff8102d5276af HTTP/1.1\" 403 50 \"-\" \"-\"","timestamp":"2024-11-29T10:25:17.822Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"POST /categories HTTP/1.1\" 201 166 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.388Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"POST /categories HTTP/1.1\" 400 136 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.410Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"GET /categories HTTP/1.1\" 200 333 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.435Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"PUT /categories/6749969fd9c10ede91d226c7 HTTP/1.1\" 200 184 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.471Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"PUT /categories/6749969fd9c10ede91d226cf HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.499Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"DELETE /categories/6749969fd9c10ede91d226c7 HTTP/1.1\" 200 46 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.550Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:35 +0000] \"DELETE /categories/6749969fd9c10ede91d226d2 HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:25:35.580Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:50 +0000] \"POST /users/register HTTP/1.1\" 201 279 \"-\" \"-\"","timestamp":"2024-11-29T10:25:50.109Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:50 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:25:50.209Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:50 +0000] \"GET /marketing HTTP/1.1\" 200 2 \"-\" \"-\"","timestamp":"2024-11-29T10:25:50.237Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:50 +0000] \"POST /marketing HTTP/1.1\" 201 297 \"-\" \"-\"","timestamp":"2024-11-29T10:25:50.273Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:50 +0000] \"PUT /marketing/674996aeec71066f389e5802 HTTP/1.1\" 200 186 \"-\" \"-\"","timestamp":"2024-11-29T10:25:50.326Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:25:50 +0000] \"DELETE /marketing/674996aeec71066f389e5805 HTTP/1.1\" 200 40 \"-\" \"-\"","timestamp":"2024-11-29T10:25:50.388Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:12 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:26:12.230Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:12 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:26:12.332Z"}
+{"level":"info","message":"Zahlung erstellt: 674996c476ad00bfc6050af8","timestamp":"2024-11-29T10:26:12.826Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:12 +0000] \"POST /payments/create HTTP/1.1\" 201 137 \"-\" \"-\"","timestamp":"2024-11-29T10:26:12.828Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:12 +0000] \"POST /payments/create HTTP/1.1\" 400 50 \"-\" \"-\"","timestamp":"2024-11-29T10:26:12.844Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:12 +0000] \"GET /payments HTTP/1.1\" 200 216 \"-\" \"-\"","timestamp":"2024-11-29T10:26:12.893Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:12 +0000] \"GET /payments/674996c476ad00bfc6050afc/status HTTP/1.1\" 200 20 \"-\" \"-\"","timestamp":"2024-11-29T10:26:12.940Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:39 +0000] \"GET /users/protected-data HTTP/1.1\" 200 217 \"-\" \"-\"","timestamp":"2024-11-29T10:26:39.182Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:39 +0000] \"GET /users/protected-data HTTP/1.1\" 401 39 \"-\" \"-\"","timestamp":"2024-11-29T10:26:39.226Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:26:39 +0000] \"GET /users/protected-data HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:26:39.251Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:27:19 +0000] \"POST /users/register HTTP/1.1\" 201 282 \"-\" \"-\"","timestamp":"2024-11-29T10:27:19.215Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:27:19 +0000] \"POST /users/register HTTP/1.1\" 400 92 \"-\" \"-\"","timestamp":"2024-11-29T10:27:19.230Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:27:19 +0000] \"POST /users/register HTTP/1.1\" 400 138 \"-\" \"-\"","timestamp":"2024-11-29T10:27:19.237Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:27:19 +0000] \"POST /users/register HTTP/1.1\" 400 133 \"-\" \"-\"","timestamp":"2024-11-29T10:27:19.242Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:27:19 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:27:19.262Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:27:19 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:27:19.282Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:30:45 +0000] \"POST /users/register HTTP/1.1\" 201 279 \"-\" \"-\"","timestamp":"2024-11-29T10:30:45.145Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:30:45 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:30:45.242Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:30:45 +0000] \"GET /inventory HTTP/1.1\" 404 64 \"-\" \"-\"","timestamp":"2024-11-29T10:30:45.247Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:30:45 +0000] \"POST /inventory HTTP/1.1\" 404 64 \"-\" \"-\"","timestamp":"2024-11-29T10:30:45.258Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:30:45 +0000] \"PUT /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:30:45.263Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:30:45 +0000] \"DELETE /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:30:45.267Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:28 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:28.262Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:28 +0000] \"POST /users/login HTTP/1.1\" 200 239 \"-\" \"-\"","timestamp":"2024-11-29T10:34:28.362Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:28 +0000] \"GET /inventory HTTP/1.1\" 200 2 \"-\" \"-\"","timestamp":"2024-11-29T10:34:28.401Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:28 +0000] \"POST /inventory HTTP/1.1\" 201 164 \"-\" \"-\"","timestamp":"2024-11-29T10:34:28.442Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:28 +0000] \"PUT /inventory/674998b4511ddae2e7ec03da HTTP/1.1\" 200 170 \"-\" \"-\"","timestamp":"2024-11-29T10:34:28.478Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:28 +0000] \"DELETE /inventory/674998b4511ddae2e7ec03da HTTP/1.1\" 200 38 \"-\" \"-\"","timestamp":"2024-11-29T10:34:28.515Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:52 +0000] \"POST /categories HTTP/1.1\" 201 166 \"-\" \"-\"","timestamp":"2024-11-29T10:34:52.388Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:52 +0000] \"POST /categories HTTP/1.1\" 400 136 \"-\" \"-\"","timestamp":"2024-11-29T10:34:52.407Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:52 +0000] \"GET /categories HTTP/1.1\" 200 333 \"-\" \"-\"","timestamp":"2024-11-29T10:34:52.966Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:53 +0000] \"PUT /categories/674998cc9a852bf2be2b8366 HTTP/1.1\" 200 184 \"-\" \"-\"","timestamp":"2024-11-29T10:34:53.008Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:53 +0000] \"PUT /categories/674998cd9a852bf2be2b836d HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:34:53.946Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:54 +0000] \"DELETE /categories/674998cc9a852bf2be2b8366 HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:34:54.004Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:54 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:54.041Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:54 +0000] \"DELETE /categories/674998ce9a852bf2be2b8371 HTTP/1.1\" 404 39 \"-\" \"-\"","timestamp":"2024-11-29T10:34:54.963Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:54 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:34:54.977Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:54 +0000] \"POST /users/register HTTP/1.1\" 201 279 \"-\" \"-\"","timestamp":"2024-11-29T10:34:54.987Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.033Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.039Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /payments/create HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.049Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /users/protected-data HTTP/1.1\" 200 217 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.049Z"}
+{"level":"error","message":"E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"testuser@example.com\" }","method":"POST","path":"/users/register","stack":"MongoServerError: E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"testuser@example.com\" }\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/operations/insert.ts:85:25\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection_pool.ts:569:13\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:363:13\n    at handleOperationResult (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:496:14)\n    at Connection.onMessage (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:461:5)\n    at MessageStream.<anonymous> (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:241:56)\n    at MessageStream.emit (node:events:518:28)\n    at MessageStream.emit (node:domain:489:12)\n    at processIncomingData (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:188:12)\n    at MessageStream._write (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:69:5)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:510:10)\n    at TLSSocket.ondata (node:internal/streams/readable:1009:22)\n    at TLSSocket.emit (node:events:518:28)\n    at TLSSocket.emit (node:domain:489:12)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at TLSSocket.Readable.push (node:internal/streams/readable:392:5)\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23)\n    at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17)","timestamp":"2024-11-29T10:34:55.033Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/register HTTP/1.1\" 500 141 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.059Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.064Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /payments/create HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.073Z"}
+{"level":"error","message":"E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"admin@example.com\" }","method":"POST","path":"/users/register","stack":"MongoServerError: E11000 duplicate key error collection: AncientVedas.Users index: email_1 dup key: { email: \"admin@example.com\" }\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/operations/insert.ts:85:25\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection_pool.ts:569:13\n    at /Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:363:13\n    at handleOperationResult (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/sdam/server.ts:496:14)\n    at Connection.onMessage (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:461:5)\n    at MessageStream.<anonymous> (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/connection.ts:241:56)\n    at MessageStream.emit (node:events:518:28)\n    at MessageStream.emit (node:domain:489:12)\n    at processIncomingData (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:188:12)\n    at MessageStream._write (/Users/relaks/ancient-veda-backend/node_modules/mongodb/src/cmap/message_stream.ts:69:5)\n    at writeOrBuffer (node:internal/streams/writable:572:12)\n    at _write (node:internal/streams/writable:501:10)\n    at MessageStream.Writable.write (node:internal/streams/writable:510:10)\n    at TLSSocket.ondata (node:internal/streams/readable:1009:22)\n    at TLSSocket.emit (node:events:518:28)\n    at TLSSocket.emit (node:domain:489:12)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at TLSSocket.Readable.push (node:internal/streams/readable:392:5)\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:189:23)\n    at TLSWrap.callbackTrampoline (node:internal/async_hooks:130:17)","timestamp":"2024-11-29T10:34:55.041Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /users/protected-data HTTP/1.1\" 401 39 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.084Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /orders HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.095Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/register HTTP/1.1\" 500 138 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.089Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /inventory HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.105Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /users/protected-data HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.124Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.124Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.128Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.137Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 46 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.143Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /inventory HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.147Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/login HTTP/1.1\" 400 183 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.149Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /payments HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.154Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /cart HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.159Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"PUT /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.164Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"DELETE /inventory/ HTTP/1.1\" 404 65 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.172Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /payments/674998cfb088266bac674b57/status HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.185Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /orders HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.238Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /marketing HTTP/1.1\" 200 2 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.241Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /marketing HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.252Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"PUT /marketing/674998cf99f2ea7c171789ed HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.287Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"DELETE /marketing/674998cf99f2ea7c171789ef HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.316Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"GET /orders HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.330Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.991Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /orders HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.997Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:55 +0000] \"POST /users/register HTTP/1.1\" 201 282 \"-\" \"-\"","timestamp":"2024-11-29T10:34:55.997Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 400 92 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.015Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 400 138 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.022Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 400 133 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.027Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.045Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"DELETE /orders/674998d0ef9aeb5ff7a6c946 HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.074Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.089Z"}
+{"level":"warn","message":"Product not found.","productId":"674998d047edb26570967b20","timestamp":"2024-11-29T10:34:56.105Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /cart HTTP/1.1\" 404 32 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.108Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 201 282 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.149Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"DELETE /orders HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.163Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"PUT /orders HTTP/1.1\" 401 49 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.244Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 201 284 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.300Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /webhook HTTP/1.1\" 200 31 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.313Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.388Z"}
+{"level":"warn","message":"Invalid productId or quantity.","timestamp":"2024-11-29T10:34:56.396Z","userId":"674998d047edb26570967b2a"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /cart HTTP/1.1\" 400 62 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.398Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.479Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.572Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674998d047edb26570967b32","quantity":2,"timestamp":"2024-11-29T10:34:56.604Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.621Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"GET /cart HTTP/1.1\" 200 170 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.663Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.750Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.837Z"}
+{"level":"info","message":"Empty cart retrieved.","timestamp":"2024-11-29T10:34:56.916Z","userId":"674998d047edb26570967b2a"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:56 +0000] \"GET /cart HTTP/1.1\" 200 33 \"-\" \"-\"","timestamp":"2024-11-29T10:34:56.918Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.003Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.091Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674998d047edb26570967b4d","quantity":2,"timestamp":"2024-11-29T10:34:57.121Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.138Z"}
+{"level":"info","message":"Cart successfully cleared.","timestamp":"2024-11-29T10:34:57.177Z","userId":"674998d047edb26570967b2a"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"DELETE /cart HTTP/1.1\" 200 40 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.179Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.265Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.352Z"}
+{"level":"info","message":"Added new product to cart.","productId":"674998d147edb26570967b5e","quantity":2,"timestamp":"2024-11-29T10:34:57.379Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /cart HTTP/1.1\" 201 236 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.396Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"DELETE /cart/674998d147edb26570967b65 HTTP/1.1\" 200 140 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.431Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /users/register HTTP/1.1\" 400 45 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.516Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"POST /users/login HTTP/1.1\" 200 243 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.604Z"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Nov/2024:10:34:57 +0000] \"DELETE /cart/674998d147edb26570967b73 HTTP/1.1\" 404 50 \"-\" \"-\"","timestamp":"2024-11-29T10:34:57.623Z"}
