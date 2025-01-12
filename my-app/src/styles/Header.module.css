@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Junge&display=swap');
+
+/* Smartphone-Ansicht */
+@media (max-width: 480px) {
+  .headerMain {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .navLinks span {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+}
+
+
+
+/* Stile für obere Leiste */
+.headerTop {
+  display: flex;
+  justify-content: space-between; /* Links, Mitte und Rechts verteilen */
+  align-items: center; /* Vertikale Zentrierung */
+  background-color: #2e2525; /* Dunkler Hintergrund */
+  color: white;
+  height: 50px;
+  padding: 0 20px; /* Abstand von den Seiten */
+  font-family: 'Junge', sans-serif;
+  position: relative; /* Wichtig für inneres Layout */
+}
+
+.topLeft {
+  flex: 1; /* Nimmt den linken Platz ein */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding-left: 10px; /* Abstand von der linken Seite */
+}
+
+.topCenter {
+  flex: 1; /* Zentrierung in der Mitte */
+  text-align: center; /* Text zentrieren */
+  font-size: 18px;
+  font-weight: bold;
+}
+.topCenter {
+  flex: 1;
+  text-align: center; /* Zentriert den Text horizontal */
+}
+
+.topCenter a {
+  color: white; /* Textfarbe */
+  text-decoration: none; /* Entfernt die Unterstreichung */
+  font-family: 'Junge', sans-serif; /* Junge-Schriftart */
+  font-size: 18px; /* Textgröße */
+  font-weight: bold; /* Fettschrift */
+  transition: color 0.3s ease; /* Smooth Hover */
+}
+
+.topCenter a:hover {
+  color: #d1d1d1; /* Hover-Farbe */
+}
+/* Top Center Link Styling */
+.centerLink {
+  color: white;
+  text-decoration: none; /* Entfernt die Unterstreichung */
+  font-family: 'Junge', sans-serif; /* Junge-Schriftart */
+  font-weight: bold;
+  font-size: 18px; /* Gleiche Größe wie im restlichen Design */
+  transition: color 0.3s ease;
+}
+
+.centerLink:hover {
+  color: #d1d1d1; /* Hover-Farbe */
+}
+
+.topRight {
+  flex: 1; /* Rechter Bereich */
+  display: flex;
+  justify-content: flex-end; /* Inhalte nach rechts schieben */
+  gap: 15px; /* Abstand zwischen Elementen */
+}
+
+/* Zusätzlicher Stil für Links */
+.topRight a {
+  color: white;
+  text-decoration: none; /* Entfernt die Unterstreichung */
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.topRight a:hover {
+  color: #d1d1d1; /* Hover-Farbe */
+}
+
+/* Hauptbereich */
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #484343;
+  color: white;
+  height: 70px;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logoIcon {
+  width: 50px; /* Größe des Logos anpassen */
+  height: 70px;
+  
+}
+
+/* Navigation */
+.navLinks {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.navLinks a {
+  color: #d1d1d1;
+  text-decoration: none;
+  font-family: 'Junge', sans-serif;
+  padding: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: white;
+}
+
+
+/* Icons Bereich */
+.headerIcons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search {
+  color: #d1d1d1;
+  font-size: 14px;
+}
+
+.icon {
+  width: 24px; /* Symbolgröße */
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Zusätzliche Symbole */
+.cartIcon {
+  background: url('/cart.svg') no-repeat center;
+  background-size: contain;
+}
+
+.userIcon {
+  background: url('/user.svg') no-repeat center;
+  background-size: contain;
+}
+
+.searchIcon {
+  background: url('/search.svg') no-repeat center;
+  background-size: contain;
+}

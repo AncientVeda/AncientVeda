@@ -9,6 +9,10 @@ const categorySchema = new mongoose.Schema({
         type: String,
         default: '',
     },
+    image: {
+        type: String, // URL oder Pfad zum Bild
+        default: '', // Optional, falls kein Bild gesetzt ist
+    },
     parent_category_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',

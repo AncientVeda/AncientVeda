@@ -1,0 +1,75 @@
+.collectionsSection {
+  padding: 50px 20px;
+  background-color: #1e1e1e;
+  color: #fff;
+  text-align: center;
+}
+
+.collectionsGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.largeCollection {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.smallCollections {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+
+.smallCollectionCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.collectionImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.collectionContent {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.collectionContent h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.collectionContent p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.collectionButton {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #ff6347;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.collectionButton:hover {
+  background-color: #e5533d;
+}
+

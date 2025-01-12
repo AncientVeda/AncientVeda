@@ -34,8 +34,8 @@ const logger = require('../utils/logger'); // Logging
  *                 example: 5000
  *               currency:
  *                 type: string
- *                 description: Währung der Zahlung (z. B. USD)
- *                 example: USD
+ *                 description: Währung der Zahlung (z. B. EUR)
+ *                 example: EUR
  *     responses:
  *       201:
  *         description: Zahlung erfolgreich erstellt
@@ -48,6 +48,7 @@ router.post('/create', authenticateToken, async (req, res) => {
     const { amount, currency } = req.body;
 
     if (!amount || !currency) {
+        logger.warn('Ungültige Eingabedaten bei Zahlungserstellung.');
         return res.status(400).json({ error: 'Betrag und Währung sind erforderlich.' });
     }
 
@@ -133,6 +134,7 @@ router.get('/:paymentId/status', authenticateToken, async (req, res) => {
     try {
         const payment = await Payment.findById(paymentId);
         if (!payment) {
+            logger.warn(`Zahlung nicht gefunden: ${paymentId}`);
             return res.status(404).json({ error: 'Zahlung nicht gefunden' });
         }
 
@@ -163,30 +165,36 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
 
         switch (event.type) {
-            case 'payment_intent.succeeded':
+            case 'payment_intent.succeeded': {
                 const paymentIntent = event.data.object;
                 const payment = await Payment.findOne({ transactionId: paymentIntent.id });
 
                 if (payment) {
                     payment.status = 'success';
                     await payment.save();
-                    logger.info(`Zahlung erfolgreich: ${payment._id}`);
+                    logger.info(`Zahlung erfolgreich aktualisiert: ${payment._id}`);
+                } else {
+                    logger.warn(`Kein Zahlungseintrag für PaymentIntent: ${paymentIntent.id}`);
                 }
                 break;
+            }
 
-            case 'payment_intent.payment_failed':
+            case 'payment_intent.payment_failed': {
                 const failedIntent = event.data.object;
-                const failedPayment = await Payment.findOne({ transactionId: failedIntent.id });
+                const payment = await Payment.findOne({ transactionId: failedIntent.id });
 
-                if (failedPayment) {
-                    failedPayment.status = 'failed';
-                    await failedPayment.save();
-                    logger.warn(`Zahlung fehlgeschlagen: ${failedPayment._id}`);
+                if (payment) {
+                    payment.status = 'failed';
+                    await payment.save();
+                    logger.warn(`Zahlung fehlgeschlagen aktualisiert: ${payment._id}`);
+                } else {
+                    logger.warn(`Kein Zahlungseintrag für fehlgeschlagenen PaymentIntent: ${failedIntent.id}`);
                 }
                 break;
+            }
 
             default:
-                logger.info(`Unbehandeltes Event: ${event.type}`);
+                logger.info(`Unbehandeltes Stripe-Event: ${event.type}`);
         }
 
         res.status(200).json({ received: true });

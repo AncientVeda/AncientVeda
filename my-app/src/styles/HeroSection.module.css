@@ -1,0 +1,15 @@
+.heroContainer {
+  width: 1440px; /* Exakte Breite */
+  height: 500px; /* Exakte Höhe */
+  margin: 0 auto; /* Zentrierung */
+  position: relative; /* Falls später noch Content ergänzt wird */
+  overflow: hidden; /* Überschüssiges Bild verstecken */
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Passt das Bild optimal an */
+  display: block; /* Entfernt eventuelle Lücken im Layout */
+}
+

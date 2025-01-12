@@ -1,10 +1,32 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer'); // Multer für Datei-Uploads
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 const authenticateToken = require('../middleware/authenticateToken');
 const { body, validationResult } = require('express-validator');
 
+// Multer-Konfiguration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Zielverzeichnis für Bilder
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + '-' + file.originalname); // Eindeutiger Dateiname
+  },
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Nur Bilddateien sind erlaubt!'), false);
+    }
+  },
+});
 /**
  * @swagger
  * components:
@@ -42,64 +64,6 @@ const { body, validationResult } = require('express-validator');
  *           description: Eine Liste von Bild-URLs für das Produkt.
  */
 
-/**
- * @swagger
- * /products:
- *   post:
- *     summary: Fügt ein neues Produkt hinzu.
- *     tags: [Products]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
- *     responses:
- *       201:
- *         description: Produkt erfolgreich hinzugefügt.
- *       400:
- *         description: Ungültige Eingabe.
- *       403:
- *         description: Keine Berechtigung.
- */
-router.post(
-  '/',
-  authenticateToken,
-  [
-    body('name').notEmpty().withMessage('Produktname ist erforderlich'),
-    body('price').isFloat({ gt: 0 }).withMessage('Preis muss größer als 0 sein'),
-    body('stock').isInt({ min: 0 }).withMessage('Lagerbestand muss mindestens 0 sein'),
-    body('category').isMongoId().withMessage('Ungültige Kategorie-ID'),
-  ],
-  async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ message: 'Ungültige Eingabedaten', errors: errors.array() });
-    }
-
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ message: 'Nur Admins dürfen Produkte hinzufügen.' });
-    }
-
-    try {
-      const categoryExists = await Category.findById(req.body.category);
-      if (!categoryExists) {
-        return res.status(400).json({ message: 'Kategorie existiert nicht.' });
-      }
-
-      const product = new Product(req.body);
-      const newProduct = await product.save();
-      res.status(201).json({
-        message: 'Produkt erfolgreich erstellt.',
-        product: newProduct,
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
 
 /**
  * @swagger
@@ -115,7 +79,7 @@ router.post(
  *       500:
  *         description: Interner Serverfehler.
  */
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const products = await Product.find().populate('category', 'name');
     res.json(products);
@@ -123,6 +87,43 @@ router.get('/', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 });
+
+
+//latest
+router.get('/latest', async (req, res) => {
+    try {
+        console.log('Abruf der neuesten Produkte gestartet...');
+        const latestProducts = await Product.find()
+            .populate('category', 'name')
+            .sort({ created_at: -1 })
+            .limit(10);
+        console.log('Neueste Produkte abgerufen:', latestProducts);
+        res.status(200).json(latestProducts);
+    } catch (err) {
+        console.error('Fehler im /latest-Route:', err.message);
+        res.status(500).json({ message: 'Fehler beim Abrufen der neuesten Produkte', error: err.message });
+    }
+});
+
+router.get("/angebote", async (req, res) => {
+  try {
+    // ID der Kategorie "Angebote"
+    const angeboteCategoryId = "676c40aeada098ed852ce966";
+
+    // Produkte mit der passenden Kategorie-ID abrufen
+    const products = await Product.find({ category: angeboteCategoryId });
+
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: "Keine Produkte in der Kategorie 'Angebote' gefunden." });
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Kategorie:", error);
+    res.status(500).json({ message: "Fehler beim Abrufen der Kategorie.", error: error.message });
+  }
+});
+
 
 /**
  * @swagger
@@ -147,7 +148,7 @@ router.get('/', authenticateToken, async (req, res) => {
  *       500:
  *         description: Interner Serverfehler.
  */
-router.get('/:id', authenticateToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('category', 'name');
     if (!product) {
@@ -158,7 +159,6 @@ router.get('/:id', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 });
-
 /**
  * @swagger
  * /products/{id}:
@@ -230,6 +230,7 @@ router.put(
     }
   }
 );
+
 
 /**
  * @swagger
@@ -355,6 +356,7 @@ router.get('/search', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 });
+
 
 module.exports = router;
 

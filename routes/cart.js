@@ -1,242 +1,213 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authenticateToken = require('../middleware/authenticateToken');
-const mongoose = require('mongoose');
-const Cart = require('../models/Cart');
-const Product = require('../models/Product');
-const Discount = require('../models/Discount');
-const logger = require('../utils/logger');
+const jwt = require("jsonwebtoken");
+const Cart = require("../models/Cart");
+const Product = require("../models/Product"); // <-- Produkt-Modell importieren
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     CartItem:
- *       type: object
- *       properties:
- *         productId:
- *           type: string
- *           description: Die ID des Produkts.
- *         quantity:
- *           type: integer
- *           description: Die Anzahl der Produkte.
- *     Cart:
- *       type: object
- *       properties:
- *         userId:
- *           type: string
- *           description: Die ID des Benutzers.
- *         items:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/CartItem'
- *         discountCode:
- *           type: string
- *           description: Rabattcode, falls angewendet.
- *         discountAmount:
- *           type: number
- *           description: Rabattbetrag.
- *         totalPrice:
- *           type: number
- *           description: Gesamtpreis des Warenkorbs nach Rabatt.
- */
 
-/**
- * @swagger
- * tags:
- *   name: Cart
- *   description: Endpunkte für den Warenkorb
- */
+// POST: Produkt zum Warenkorb hinzufügen oder aktualisieren
+// POST: Produkt zum Warenkorb hinzufügen oder aktualisieren
+router.post("/", async (req, res) => {
+  const { productId, quantity, sessionId } = req.body;
+  const token = req.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : null;
 
-/**
- * @swagger
- * /cart/trigger-error:
- *   get:
- *     summary: Löst einen Testfehler aus.
- *     tags: [Cart]
- *     responses:
- *       500:
- *         description: Testfehler ausgelöst.
- */
-router.get('/trigger-error', (req, res, next) => {
-  throw new Error('Dies ist ein Testfehler für Sentry!');
-});
+  if (!productId || quantity < 1) {
+    return res.status(400).json({ message: "Produkt-ID und gültige Menge erforderlich." });
+  }
 
-/**
- * @swagger
- * /cart:
- *   post:
- *     summary: Fügt ein Produkt in den Warenkorb hinzu.
- *     tags: [Cart]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               productId:
- *                 type: string
- *                 description: Die ID des Produkts.
- *               quantity:
- *                 type: integer
- *                 description: Die Anzahl der hinzuzufügenden Produkte.
- *     responses:
- *       201:
- *         description: Produkt erfolgreich zum Warenkorb hinzugefügt.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Cart'
- *       400:
- *         description: Ungültige Eingabe.
- *       404:
- *         description: Produkt nicht gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
-router.post('/', authenticateToken, async (req, res) => {
-    const { productId, quantity } = req.body;
-
-    if (!productId || quantity <= 0) {
-        logger.warn('Invalid productId or quantity.', { userId: req.user.userId });
-        return res.status(400).json({ message: 'Product ID and a positive quantity are required.' });
+  try {
+    // Validierung: Prüfe, ob das Produkt existiert
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Produkt nicht gefunden." });
     }
 
-    try {
-        const product = await Product.findById(productId);
-        if (!product) {
-            logger.warn('Product not found.', { productId });
-            return res.status(404).json({ message: 'Product not found.' });
-        }
-
-        let cart = await Cart.findOne({ userId: req.user.userId });
-        if (!cart) {
-            cart = new Cart({ userId: req.user.userId, items: [] });
-        }
-
-        const existingItem = cart.items.find(item => item.productId.toString() === productId);
-        if (existingItem) {
-            existingItem.quantity += quantity;
-            logger.info('Updated quantity for existing product in cart.', { productId, quantity });
-        } else {
-            cart.items.push({ productId, quantity });
-            logger.info('Added new product to cart.', { productId, quantity });
-        }
-
-        await cart.save();
-        res.status(201).json({ message: 'Product successfully added to the cart.', cart });
-    } catch (error) {
-        logger.error('Error adding product to the cart.', { error: error.message });
-        res.status(500).json({ message: 'Internal Server Error.' });
+    let userId = null;
+    if (token) {
+      try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        userId = decodedToken.userId;
+      } catch (err) {
+        return res.status(401).json({ message: "Ungültiges Token." });
+      }
     }
+
+    // Warenkorb abrufen oder erstellen
+    const cart = await getOrCreateCart({ userId, sessionId });
+
+    // Produkt im Warenkorb aktualisieren oder hinzufügen
+    const existingItem = cart.items.find(
+      (item) => item.productId.toString() === productId
+    );
+
+    if (existingItem) {
+      existingItem.quantity = Math.max(1, quantity); // Menge aktualisieren, mindestens 1
+    } else {
+      cart.items.push({ productId, quantity });
+    }
+
+    await cart.save();
+
+    // Warenkorb aktualisiert - Rückgabe
+    const updatedCart = await cart.populate("items.productId", "name price images");
+    res.status(200).json({ message: "Warenkorb aktualisiert.", cart: updatedCart });
+  } catch (error) {
+    console.error("Fehler beim Aktualisieren des Warenkorbs:", error);
+    res.status(500).json({ message: "Interner Serverfehler." });
+  }
 });
-/**
- * @swagger
- * /cart:
- *   get:
- *     summary: Ruft den aktuellen Warenkorb des Benutzers ab.
- *     tags: [Cart]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Erfolgreiche Rückgabe des Warenkorbs.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Cart'
- *       404:
- *         description: Kein Warenkorb gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
-router.get('/', authenticateToken, async (req, res) => {
-    try {
-        const cart = await Cart.findOne({ userId: req.user.userId }).populate('items.productId', 'name price');
 
-        if (!cart || cart.items.length === 0) {
-            logger.info('Empty cart retrieved.', { userId: req.user.userId });
-            return res.status(200).json({ message: 'Your cart is empty.' });
-        }
+// Helper-Funktion: Warenkorb abrufen oder erstellen
+async function getOrCreateCart({ userId, sessionId }) {
+  if (userId) {
+    let cart = await Cart.findOne({ userId });
+    if (!cart) {
+      cart = new Cart({ userId, items: [] });
+    }
+    return cart;
+  }
 
-        const totalPrice = cart.items.reduce((sum, item) => sum + item.productId.price * item.quantity, 0);
+  if (sessionId) {
+    let cart = await Cart.findOne({ sessionId });
+    if (!cart) {
+      cart = new Cart({ sessionId, items: [] });
+    }
+    return cart;
+  }
 
-        res.json({
-            userId: cart.userId,
-            items: cart.items.map(item => ({
-                productId: item.productId._id,
-                name: item.productId.name,
-                price: item.productId.price,
-                quantity: item.quantity,
-                total: item.productId.price * item.quantity,
-            })),
-            totalPrice,
+  throw new Error("Weder Benutzer-ID noch Session-ID vorhanden.");
+}
+
+
+
+
+// GET: Warenkorb abrufen
+// GET: Warenkorb abrufen
+router.get("/", async (req, res) => {
+  const token = req.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : null;
+  const sessionId = req.query.sessionId;
+
+  try {
+    let cart;
+
+    if (token) {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
+
+      // Populate mit allen notwendigen Feldern
+      cart = await Cart.findOne({ userId }).populate(
+        "items.productId",
+        "name price images" // Felder, die geladen werden sollen
+      );
+    } else if (sessionId) {
+      cart = await Cart.findOne({ sessionId }).populate(
+        "items.productId",
+        "name price images"
+      );
+    }
+
+    if (!cart || cart.items.length === 0) {
+      return res.status(200).json({ items: [], totalPrice: 0 });
+    }
+
+    const totalPrice = cart.items.reduce(
+      (sum, item) => sum + item.productId.price * item.quantity,
+      0
+    );
+
+    res.status(200).json({
+      items: cart.items.map((item) => ({
+        productId: item.productId._id,
+        name: item.productId.name,
+        price: item.productId.price,
+        quantity: item.quantity,
+        total: item.productId.price * item.quantity,
+        image: item.productId.images?.[0] || null, // Erstes Bild verwenden
+      })),
+      totalPrice,
+    });
+  } catch (error) {
+    console.error("Fehler beim Abrufen des Warenkorbs:", error);
+    return res.status(500).json({ message: "Interner Serverfehler." });
+  }
+});
+
+// DELETE: Produkt aus dem Warenkorb entfernen
+router.delete("/:productId", async (req, res) => {
+  const { productId } = req.params;
+  const token = req.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : null;
+  const sessionId = req.query.sessionId;
+
+  try {
+    let userId = null;
+
+    if (token) {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      userId = decodedToken.userId;
+    }
+
+    const cart = await getOrCreateCart({ userId, sessionId });
+
+    cart.items = cart.items.filter((item) => item.productId.toString() !== productId);
+
+    await cart.save();
+    res.status(200).json({ message: "Produkt aus dem Warenkorb entfernt.", cart });
+  } catch (error) {
+    console.error("Fehler beim Entfernen des Produkts:", error);
+    res.status(500).json({ message: "Interner Serverfehler." });
+  }
+});
+
+// POST: Synchronisation von Session-Cart zu User-Cart
+router.post("/sync", async (req, res) => {
+  const { sessionId } = req.body;
+  const token = req.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : null;
+
+  if (!token) {
+    return res.status(401).json({ message: "Nicht autorisiert." });
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+
+    const sessionCart = await Cart.findOne({ sessionId });
+    let userCart = await Cart.findOne({ userId });
+
+    if (sessionCart) {
+      if (!userCart) {
+        userCart = new Cart({ userId, items: sessionCart.items });
+      } else {
+        sessionCart.items.forEach((sessionItem) => {
+          const existingItem = userCart.items.find(
+            (item) => item.productId.toString() === sessionItem.productId.toString()
+          );
+
+          if (existingItem) {
+            existingItem.quantity += sessionItem.quantity;
+          } else {
+            userCart.items.push(sessionItem);
+          }
         });
-    } catch (error) {
-        logger.error('Error retrieving cart.', { error: error.message });
-        res.status(500).json({ message: 'Internal Server Error.' });
+      }
+
+      await userCart.save();
+      await Cart.deleteOne({ sessionId });
     }
-});
-/**
- * @swagger
- * /cart:
- *   delete:
- *     summary: Leert den gesamten Warenkorb.
- *     tags: [Cart]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Warenkorb erfolgreich geleert.
- *       404:
- *         description: Kein Warenkorb gefunden.
- *       500:
- *         description: Interner Serverfehler.
- */
-router.delete('/', authenticateToken, async (req, res) => {
-    try {
-        const cart = await Cart.findOne({ userId: req.user.userId });
-        if (!cart) {
-            logger.warn('Cart not found.', { userId: req.user.userId });
-            return res.status(404).json({ message: 'Cart not found.' });
-        }
 
-        cart.items = [];
-        await cart.save();
-        logger.info('Cart successfully cleared.', { userId: req.user.userId });
-        res.status(200).json({ message: 'Cart successfully cleared.' });
-    } catch (error) {
-        logger.error('Error clearing cart.', { error: error.message });
-        res.status(500).json({ message: 'Internal Server Error.' });
-    }
-});
-
-
-
-router.delete('/:itemId', authenticateToken, async (req, res) => {
-    try {
-        const { itemId } = req.params;
-        const cart = await Cart.findOne({ userId: req.user.userId });
-
-        if (!cart) {
-            return res.status(404).json({ message: 'Artikel nicht im Warenkorb gefunden.' });
-        }
-
-        const itemIndex = cart.items.findIndex(item => item._id.toString() === itemId);
-        if (itemIndex === -1) {
-            return res.status(404).json({ message: 'Artikel nicht im Warenkorb gefunden.' });
-        }
-
-        cart.items.splice(itemIndex, 1); // Entferne das Item
-        await cart.save();
-
-        res.status(200).json({ message: 'Produkt erfolgreich entfernt.', cart });
-    } catch (error) {
-        res.status(500).json({ message: 'Interner Serverfehler.', error: error.message });
-    }
+    res.status(200).json({ message: "Warenkorb synchronisiert.", cart: userCart });
+  } catch (error) {
+    console.error("Fehler beim Synchronisieren des Warenkorbs:", error);
+    res.status(500).json({ message: "Interner Serverfehler." });
+  }
 });
 
 module.exports = router;

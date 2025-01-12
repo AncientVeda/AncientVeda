@@ -4,8 +4,29 @@ const Product = require('../models/Product');
 const Category = require('../models/Category');
 const Order = require('../models/Order');
 const User = require('../models/User');
+const Payment = require('../models/Payment');
+const DeliveryAddress = require('../models/DeliveryAddress'); // Dein DeliveryAddress-Schema
+const Discount = require('../models/Discount');
 const authenticateToken = require('../middleware/authenticateToken');
 const logger = require('../utils/logger');
+const multer = require('multer');
+const path = require('path');
+const { body, validationResult } = require('express-validator');
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({ storage });
+
+
 
 // Middleware: Nur Admins
 const adminOnly = (req, res, next) => {
@@ -16,126 +37,46 @@ const adminOnly = (req, res, next) => {
     next();
 };
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Product:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *           description: Name des Produkts.
- *         price:
- *           type: number
- *           description: Preis des Produkts.
- *         description:
- *           type: string
- *           description: Beschreibung des Produkts.
- *         category:
- *           type: string
- *           description: Die ID der zugehörigen Kategorie.
- *         stock:
- *           type: number
- *           description: Verfügbarkeit im Lager.
- *     Category:
- *       type: object
- *       properties:
- *         name:
- *           type: string
- *           description: Name der Kategorie.
- *         description:
- *           type: string
- *           description: Beschreibung der Kategorie.
- *         parent_category_id:
- *           type: string
- *           description: Die ID der übergeordneten Kategorie.
- */
+// Admin Dashboard: Zusammenführung der Informationen
+router.get('/dashboard', authenticateToken, adminOnly, async (req, res) => {
+  try {
+    // Nur relevante Payments (Used Status)
+    const payments = await Payment.find({ status: 'succeeded' });
 
-/**
- * @swagger
- * tags:
- *   name: Admin
- *   description: Admin-spezifische Endpunkte für Produkte, Kategorien und Statistiken
- */
+    // IDs von zugehörigen Orders und Usern extrahieren
+    const orderIds = payments.map((payment) => payment._id);
+    const userIds = payments.map((payment) => payment.userId);
 
+    // Alle relevanten Orders laden
+    const orders = await Order.find({ _id: { $in: orderIds } })
+      .populate('userId', 'name email') // Benutzerinfo hinzufügen
+      .populate('items.productId', 'name price'); // Produktdetails hinzufügen
 
+    // Alle relevanten Lieferadressen laden
+    const deliveryAddresses = await DeliveryAddress.find({ orderId: { $in: orderIds } })
+      .populate('userId', 'name email'); // Benutzerinfo hinzufügen
 
+    // Zusammenführen der Daten
+    const dashboardData = payments.map((payment) => {
+      const relatedOrder = orders.find((order) => order._id.equals(payment._id));
+      const relatedAddress = deliveryAddresses.find((address) => address.orderId.equals(payment._id));
 
-/**
- * @swagger
- * /admin/stats:
- *   get:
- *     summary: Ruft Admin-Statistiken ab.
- *     tags: [Admin]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Erfolgreiche Rückgabe von Statistiken.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 totalOrders:
- *                   type: integer
- *                   description: Gesamtanzahl der Bestellungen.
- *                 totalRevenue:
- *                   type: number
- *                   description: Gesamteinnahmen aller Bestellungen.
- *                 topProducts:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       productName:
- *                         type: string
- *                         description: Name des Produkts.
- *                       totalSold:
- *                         type: integer
- *                         description: Anzahl der verkauften Einheiten.
- *                 totalUsers:
- *                   type: integer
- *                   description: Gesamtanzahl der Benutzer.
- *       403:
- *         description: Zugriff verweigert (nur für Admins).
- *       500:
- *         description: Interner Serverfehler.
- */
+      return {
+        payment,
+        order: relatedOrder || null,
+        deliveryAddress: relatedAddress || null,
+        user: relatedOrder ? relatedOrder.userId : null,
+      };
+    });
 
-// --- Statistiken ---
-// Statistiken abrufen
-router.get('/stats', authenticateToken, adminOnly, async (req, res) => {
-    try {
-        const totalOrders = await Order.countDocuments();
-        const totalRevenue = await Order.aggregate([
-            { $group: { _id: null, total: { $sum: "$totalPrice" } } }
-        ]);
-        const topProducts = await Order.aggregate([
-            { $unwind: "$items" },
-            { $group: { _id: "$items.productId", totalSold: { $sum: "$items.quantity" } } },
-            { $sort: { totalSold: -1 } },
-            { $limit: 5 },
-            { $lookup: { from: "products", localField: "_id", foreignField: "_id", as: "productDetails" } },
-            { $unwind: "$productDetails" },
-            { $project: { _id: 0, productName: "$productDetails.name", totalSold: 1 } }
-        ]);
-        const totalUsers = await User.countDocuments();
-
-        logger.info("Statistiken erfolgreich abgerufen.");
-        res.json({
-            totalOrders,
-            totalRevenue: totalRevenue[0]?.total || 0,
-            topProducts,
-            totalUsers
-        });
-    } catch (err) {
-        logger.error(`Fehler beim Abrufen der Statistiken: ${err.message}`);
-        res.status(500).json({ message: 'Interner Serverfehler' });
-    }
+    res.json(dashboardData);
+  } catch (err) {
+    console.error('Fehler beim Abrufen des Dashboards:', err);
+    res.status(500).json({ message: 'Fehler beim Abrufen des Dashboards', error: err.message });
+  }
 });
 
+module.exports = router;
 
 
 /**
@@ -187,19 +128,54 @@ router.get('/stats', authenticateToken, adminOnly, async (req, res) => {
  */
 
 // --- Produkte ---
-// Produkt hinzufügen
-router.post('/products', authenticateToken, adminOnly, async (req, res) => {
-    try {
-        const { name, price, description, category, stock } = req.body;
-        const product = new Product({ name, price, description, category, stock });
-        const savedProduct = await product.save();
-        logger.info(`Produkt hinzugefügt: ${savedProduct._id}`);
-        res.status(201).json(savedProduct);
-    } catch (error) {
-        logger.error(`Fehler beim Hinzufügen des Produkts: ${error.message}`);
-        res.status(500).json({ message: 'Fehler beim Hinzufügen des Produkts', error: error.message });
+// POST: Neues Produkt hinzufügen
+router.post(
+  '/products',
+  authenticateToken,
+  upload.single('image'), // Multer-Middleware für den Upload eines einzelnen Bildes
+  [
+    body('name').notEmpty().withMessage('Produktname ist erforderlich'),
+    body('price').isFloat({ gt: 0 }).withMessage('Preis muss größer als 0 sein'),
+    body('stock').isInt({ min: 0 }).withMessage('Lagerbestand muss mindestens 0 sein'),
+    body('category').isMongoId().withMessage('Ungültige Kategorie-ID'),
+  ],
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: 'Ungültige Eingabedaten', errors: errors.array() });
     }
-});
+ 
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Nur Admins dürfen Produkte hinzufügen.' });
+    }
+ 
+    try {
+      const categoryExists = await Category.findById(req.body.category);
+      if (!categoryExists) {
+        return res.status(400).json({ message: 'Kategorie existiert nicht.' });
+      }
+ 
+      // Neues Produkt erstellen
+         const productData = {
+        name: req.body.name,
+        price: req.body.price,
+        stock: req.body.stock,
+        category: req.body.category,
+        description: req.body.description || '',
+        images: req.file ? [`/uploads/${req.file.filename}`] : [], // Bild-URL speichern
+      };
+  
+      const product = new Product(productData);
+      const newProduct = await product.save();
+      res.status(201).json({
+        message: 'Produkt erfolgreich erstellt.',
+        product: newProduct,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 
 /**
@@ -353,13 +329,14 @@ router.delete('/products/:productId', authenticateToken, adminOnly, async (req, 
 router.get('/products', authenticateToken, adminOnly, async (req, res) => {
     try {
         const products = await Product.find();
-        logger.info('Produkte erfolgreich abgerufen.');
+        console.log('Produkte aus der Datenbank:', products); // Log zur Überprüfung
         res.json(products);
     } catch (error) {
-        logger.error(`Fehler beim Abrufen der Produkte: ${error.message}`);
+        console.error(`Fehler beim Abrufen der Produkte: ${error.message}`);
         res.status(500).json({ message: 'Fehler beim Abrufen der Produkte', error: error.message });
     }
 });
+
 /**
  * @swagger
  * /admin/categories:
@@ -402,18 +379,49 @@ router.get('/products', authenticateToken, adminOnly, async (req, res) => {
 
 // --- Kategorien ---
 // Kategorie hinzufügen
-router.post('/categories', authenticateToken, adminOnly, async (req, res) => {
-    try {
-        const { name, description, parent_category_id } = req.body;
-        const category = new Category({ name, description, parent_category_id });
-        const savedCategory = await category.save();
-        logger.info(`Kategorie hinzugefügt: ${savedCategory._id}`);
-        res.status(201).json(savedCategory);
-    } catch (error) {
-        logger.error(`Fehler beim Hinzufügen der Kategorie: ${error.message}`);
-        res.status(500).json({ message: 'Fehler beim Hinzufügen der Kategorie', error: error.message });
+
+router.post(
+  '/categories',
+  authenticateToken,
+  adminOnly,
+  upload.single('image'), // Middleware für Datei-Upload
+  [
+    body('name').notEmpty().withMessage('Der Name der Kategorie ist erforderlich'),
+    body('description').optional().isString().withMessage('Beschreibung muss ein String sein'),
+    body('parent_category_id')
+      .optional()
+      .custom((value) => mongoose.isValidObjectId(value) || value === null)
+      .withMessage('Ungültige ID für übergeordnete Kategorie'),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: 'Ungültige Eingabedaten', errors: errors.array() });
     }
-});
+
+    try {
+      const { name, description, parent_category_id } = req.body;
+
+      // Bildpfad aus Multer
+      const image = req.file ? `/uploads/categories/${req.file.filename}` : '';
+
+      const category = new Category({
+        name,
+        description,
+        parent_category_id,
+        image,
+      });
+
+      const savedCategory = await category.save();
+      logger.info(`Kategorie hinzugefügt: ${savedCategory._id}`);
+      res.status(201).json(savedCategory);
+    } catch (error) {
+      logger.error(`Fehler beim Hinzufügen der Kategorie: ${error.message}`);
+      res.status(500).json({ message: 'Fehler beim Hinzufügen der Kategorie', error: error.message });
+    }
+  }
+);
+
 
 /**
  * @swagger
@@ -554,16 +562,108 @@ router.delete('/categories/:categoryId', authenticateToken, adminOnly, async (re
  */
 
 // Kategorien auflisten
+// Kategorien auflisten
 router.get('/categories', authenticateToken, adminOnly, async (req, res) => {
     try {
         const categories = await Category.find();
+
+        // Vollständige URL für Bilder hinzufügen
+        const updatedCategories = categories.map((category) => ({
+            ...category._doc,
+            image: category.image ? `${process.env.BASE_URL || 'http://localhost:5001'}/${category.image}` : null,
+        }));
+
         logger.info('Kategorien erfolgreich abgerufen.');
-        res.json(categories);
+        res.json(updatedCategories);
     } catch (error) {
         logger.error(`Fehler beim Abrufen der Kategorien: ${error.message}`);
         res.status(500).json({ message: 'Fehler beim Abrufen der Kategorien', error: error.message });
     }
 });
 
+// Route: Alle Bestellungen abrufen
+router.get('/orders', authenticateToken, async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate('userId', 'name email') // Benutzername und E-Mail laden
+      .populate('items.productId', 'name price'); // Produktdetails laden
+    res.json(orders);
+  } catch (err) {
+    console.error('Fehler beim Abrufen der Bestellungen:', err);
+    res.status(500).json({ message: 'Fehler beim Abrufen der Bestellungen', error: err.message });
+  }
+});
+
+// Route: Zahlungen abrufen
+router.get('/payments', authenticateToken, async (req, res) => {
+    try {
+        const payments = await Payment.find()
+            .populate('userId', 'name email') // Benutzername und E-Mail laden
+            .sort({ created_at: -1 }); // Nach Erstellungsdatum sortieren
+        res.json(payments);
+    } catch (err) {
+        console.error('Fehler beim Abrufen der Zahlungen:', err.message);
+        res.status(500).json({ message: 'Fehler beim Abrufen der Zahlungen', error: err.message });
+    }
+});
+
+
+// Alle Benutzer abrufen
+router.get('/users', authenticateToken, adminOnly, async (req, res) => {
+    try {
+        const users = await User.find({}, 'name email address city zipCode phone birthDate role created_at');
+        res.json(users);
+    } catch (error) {
+        console.error(`Fehler beim Abrufen der Benutzer: ${error.message}`);
+        res.status(500).json({ message: 'Fehler beim Abrufen der Benutzer', error: error.message });
+    }
+});
+
+
+// Alle Lieferadressen abrufen
+router.get('/delivery-addresses', authenticateToken, adminOnly, async (req, res) => {
+    try {
+        const addresses = await DeliveryAddress.find()
+            .populate('userId', 'name email') // Benutzername und E-Mail
+            .populate('orderId', '_id total_price status'); // Bestellnummer, Preis und Status
+        
+        console.log('Lieferadressen:', JSON.stringify(addresses, null, 2)); // Debugging
+        
+        res.json(addresses);
+    } catch (error) {
+        console.error(`Fehler beim Abrufen der Lieferadressen: ${error.message}`);
+        res.status(500).json({ message: 'Fehler beim Abrufen der Lieferadressen', error: error.message });
+    }
+});
+
+// Route: Neue Rabattaktion erstellen
+// Discounts abrufen
+router.get('/discounts', authenticateToken, adminOnly, async (req, res) => {
+  try {
+    const discounts = await Discount.find();
+    res.json(discounts);
+  } catch (err) {
+    res.status(500).json({ message: 'Fehler beim Abrufen der Rabatte', error: err.message });
+  }
+});
+
+// Rabatt hinzufügen
+router.post('/discounts', authenticateToken, adminOnly, async (req, res) => {
+  const { code, discountType, value, expirationDate, usageLimit } = req.body;
+
+  try {
+    const newDiscount = new Discount({
+      code,
+      discountType,
+      value,
+      expirationDate,
+      usageLimit,
+    });
+    await newDiscount.save();
+    res.status(201).json({ message: 'Rabatt erfolgreich hinzugefügt', discount: newDiscount });
+  } catch (err) {
+    res.status(400).json({ message: 'Fehler beim Hinzufügen des Rabatts', error: err.message });
+  }
+});
 module.exports = router;
 

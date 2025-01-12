@@ -1,0 +1,63 @@
+.container {
+  background-color: #1e1e1e; /* Dunkles Hintergrunddesign */
+  color: #ffffff; /* Helle Schriftfarbe */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 50px auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #e8e8e8;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #2b2b2b;
+  color: #fff;
+}
+
+.input:focus {
+  border-color: #6c63ff; /* Fokus-Farbe */
+}
+
+.button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6c63ff; /* Knopf-Farbe */
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #7a72ff; /* Hover-Effekt */
+}
+
+.linkText {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.link {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+

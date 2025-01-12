@@ -1,0 +1,12 @@
+body {
+  background-color: #1e1e1e; /* Leichtes Schwarz-Grau */
+  color: #ffffff; /* Weiße Textfarbe für Lesbarkeit */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Optional: Einheitliche Schriftart */
+}
+
+* {
+  box-sizing: border-box; /* Für konsistentes Box-Modell */
+}
+

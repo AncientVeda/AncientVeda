@@ -1,0 +1,45 @@
+.adminContainer {
+  display: flex;
+  height: 100vh;
+  background-color: #1e1e1e; /* Dunkler Hintergrund */
+  color: #fff; /* Weiße Schrift */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2e2e2e; /* Etwas heller als Haupt-Hintergrund */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar h2 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #ddd;
+  font-size: 16px;
+}
+
+.sidebar ul li a:hover {
+  color: #fff;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  background-color: #1e1e1e; /* Gleicher Hintergrund wie Admin-Seite */
+}
+

@@ -1,0 +1,66 @@
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+}
+
+.navigation li {
+  margin-bottom: 10px;
+}
+
+.navigation a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.socialMedia .icons a {
+  margin-right: 15px;
+}
+
+.socialMedia .icons img {
+  width: 24px;
+  height: 24px;
+}
+
+.newsletter form {
+  display: flex;
+  gap: 10px;
+}
+
+.emailInput {
+  padding: 8px;
+  flex: 1;
+  border: none;
+  border-radius: 4px;
+}
+
+.subscribeButton {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+

@@ -1,15 +1,18 @@
 require('dotenv').config(); // Lädt die Umgebungsvariablen
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const logger = require('./utils/logger');
 const Sentry = require('@sentry/node');
 const session = require('express-session');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo');
+
+
 const app = express();
-const stripeWebhookRouter = require('./routes/stripeWebhook');
 
 // --- Sentry Setup ---
 Sentry.init({
@@ -18,29 +21,49 @@ Sentry.init({
 
 // --- Middleware ---
 app.use(Sentry.Handlers.requestHandler()); // Sentry-Request-Handler
-app.use(cors());
+
+// CORS-Konfiguration
+app.use(cors({
+  origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173', // Erlaubt nur das Frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Erlaubte Methoden
+  credentials: true, // Cookies erlauben
+  allowedHeaders: ['Content-Type', 'Authorization'], // Erlaubte Header
+}));
+
+// Logger
 app.use(morgan('combined', {
   stream: {
     write: (message) => logger.info(message.trim()),
   },
 }));
-app.use(session({
-  secret: 'geheime-session-id',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: process.env.NODE_ENV === 'production' },
-}));
-app.use(
-  '/webhook',
-  bodyParser.raw({ type: 'application/json' }), // rawBody sicherstellen
-  require('./routes/stripeWebhook')
-);
 
-// Standard-JSON-Parsing für andere Routen:
+// Cookie-Parser
+app.use(cookieParser());
+
+// Session-Konfiguration mit MongoDB
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'fallback-secret',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 24 * 60 * 60, // 1 Tag
+  }),
+  cookie: {
+    secure: process.env.NODE_ENV === 'production', // Nur HTTPS in Produktion
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 1 Tag
+  },
+}));
+
+// Statische Dateien bereitstellen
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Standard-JSON-Parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --- Swagger ---
+// --- Swagger Setup ---
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -56,7 +79,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./routes/**/*.js'], // Dynamisch alle JS-Dateien in "routes" laden
+  apis: ['./routes/**/*.js'], // Alle JS-Dateien in "routes" dynamisch laden
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
@@ -74,8 +97,12 @@ app.use('/payments', require('./routes/payments')); // Payments-Route
 app.use('/categories', require('./routes/categories'));
 app.use('/marketing', require('./routes/marketing'));
 app.use('/admin', require('./routes/admin'));
+app.use('/bestsellers', require('./routes/bestsellers'));
+app.use('/settings', require('./routes/settings'));
+app.use('/delivery-addresses', require('./routes/delivery-addresses'));
 
 // --- Fehlerbehandlung ---
+// 404-Fehler
 app.use((req, res, next) => {
   res.status(404).json({
     error: {
@@ -85,7 +112,7 @@ app.use((req, res, next) => {
   });
 });
 
-// Sentry-Error-Handler muss am Ende stehen
+// Sentry-Error-Handler
 app.use(Sentry.Handlers.errorHandler());
 
 // Generische Fehlerbehandlung

@@ -1,0 +1,189 @@
+
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import axios from 'axios';
+
+const stripePromise = loadStripe('pk_live_51QJgaZAVBWJOIP3RahfAHhJnVV813PkpWGQzEon5ltYE6ec6dc6RRrSNhUfpQzxBu4H88ReH8xuKtHHHGGK9QGGy00wZAoyELe'); // Füge deinen Stripe-Key hier ein
+
+const CheckoutForm = ({ cart, totalPrice, onSuccess }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [address, setAddress] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [city, setCity] = useState('');
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+
+    if (!address || !postalCode || !city) {
+      setErrorMessage('Bitte alle Felder ausfüllen.');
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        console.error('Auth Token fehlt.');
+        onSuccess('unauthorized');
+        return;
+      }
+
+      console.log('Schritt 1: Bestellung erstellen...');
+      const { data: orderData } = await axios.post(
+        'http://localhost:5001/orders',
+        {
+          address,
+          postalCode,
+          city,
+          items: cart.items.map((item) => ({
+            productId: item.productId._id || item.productId,
+            quantity: item.quantity,
+          })),
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log('Bestellung erfolgreich erstellt:', orderData);
+
+      const orderId = orderData.order._id;
+
+      console.log('Schritt 2: Zahlung initialisieren...');
+      const { data: paymentData } = await axios.post(
+        'http://localhost:5001/payments/create',
+        { amount: totalPrice * 100, currency: 'EUR' },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log('Zahlung initialisiert:', paymentData);
+
+      const clientSecret = paymentData.clientSecret;
+      const cardElement = elements.getElement(CardElement);
+
+      console.log('Schritt 3: Zahlung durchführen...');
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: { card: cardElement },
+      });
+
+      if (error) {
+        console.error('Fehler bei der Zahlung:', error);
+        setErrorMessage(error.message);
+        setIsProcessing(false);
+        return;
+      }
+
+      if (paymentIntent.status === 'succeeded') {
+        console.log('Zahlung erfolgreich abgeschlossen. Bestellung wird aktualisiert...');
+        await axios.put(
+          `http://localhost:5001/orders/${orderId}`,
+          { status: 'paid' },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        console.log('Warenkorb wird geleert...');
+        localStorage.removeItem('cart');
+        onSuccess('success');
+      }
+    } catch (error) {
+      console.error('Fehler beim Checkout:', error.response?.data || error.message);
+      setErrorMessage('Fehler beim Checkout. Bitte erneut versuchen.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleCheckout}>
+      <h3>Adresse</h3>
+      <input
+        type="text"
+        placeholder="Adresse"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Postleitzahl"
+        value={postalCode}
+        onChange={(e) => setPostalCode(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Stadt"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <CardElement />
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      <button type="submit" disabled={!stripe || isProcessing}>
+        {isProcessing ? 'Wird verarbeitet...' : 'Zahlung abschließen'}
+      </button>
+    </form>
+  );
+};
+
+const Checkout = () => {
+  const navigate = useNavigate();
+  const [cart, setCart] = useState({ items: [] });
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const fetchCart = async () => {
+    try {
+      console.log('Schritt 0: Warenkorb synchronisieren...');
+      const token = localStorage.getItem('authToken');
+      const { data } = await axios.get('http://localhost:5001/cart', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log('Warenkorb synchronisiert:', data);
+
+      setCart(data);
+      setTotalPrice(
+        data.items.reduce((acc, item) => acc + item.quantity * item.productId.price, 0)
+      );
+    } catch (error) {
+      console.error('Fehler beim Laden des Warenkorbs:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const handleSuccess = (status) => {
+    if (status === 'success') {
+      alert('Zahlung erfolgreich abgeschlossen!');
+      navigate('/orders');
+    } else if (status === 'unauthorized') {
+      navigate('/login');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Zur Kasse</h1>
+      {cart.items.length === 0 ? (
+        <p>Warenkorb ist leer.</p>
+      ) : (
+        <>
+          <ul>
+            {cart.items.map((item) => (
+              <li key={item.productId._id || item.productId}>
+                {item.productId.name} - {item.productId.price} € x {item.quantity}
+              </li>
+            ))}
+          </ul>
+          <h3>Gesamtpreis: {totalPrice} €</h3>
+          <Elements stripe={stripePromise}>
+            <CheckoutForm cart={cart} totalPrice={totalPrice} onSuccess={handleSuccess} />
+          </Elements>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default Checkout;
+

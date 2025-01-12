@@ -1,0 +1,76 @@
+.container {
+  padding: 20px;
+  text-align: center;
+}
+
+.heading {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.name {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #ffffff;
+}
+
+.price {
+  font-size: 16px;
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.loading {
+  font-size: 18px;
+  color: #bbbbbb;
+}
+
+.error {
+  font-size: 18px;
+  color: #ff4444;
+}
+

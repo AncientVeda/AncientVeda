@@ -1,0 +1,33 @@
+.bannerContainer {
+  width: 100%;
+  height: auto; /* Automatische Höhe entsprechend der Breite */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 20px 0; /* Abstand zu anderen Komponenten */
+  background-color: #222; /* Dunkler Hintergrund (optional) */
+}
+
+.bannerImage {
+  width: 100%;
+  height: auto; /* Proportionale Skalierung */
+  object-fit: cover; /* Schneidet nicht zu viel vom Bild ab */
+}
+.bannerContainer {
+  width: 100%;
+  height: auto; /* Automatische Höhe entsprechend der Breite */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 20px 0; /* Abstand zu anderen Komponenten */
+  background-color: #222; /* Dunkler Hintergrund (optional) */
+}
+
+.bannerImage {
+  width: 100%;
+  height: auto; /* Proportionale Skalierung */
+  object-fit: cover; /* Schneidet nicht zu viel vom Bild ab */
+}
+

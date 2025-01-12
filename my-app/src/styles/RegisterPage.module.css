@@ -1,0 +1,72 @@
+.container {
+  background-color: #1e1e1e; /* Dunkler Hintergrund */
+  color: #ffffff; /* Helle Schriftfarbe */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 50px auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Schatten */
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #e8e8e8;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #333; /* Dunkler Rand */
+  border-radius: 5px;
+  background-color: #2b2b2b; /* Hellerer dunkler Hintergrund */
+  color: #fff; /* Helle Schriftfarbe */
+}
+
+.input:focus {
+  border-color: #6c63ff; /* Fokusfarbe */
+  outline: none; /* Fokusrahmen entfernen */
+}
+
+.button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6c63ff; /* Knopf-Farbe */
+  color: #fff; /* Helle Schrift */
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #7a72ff; /* Hover-Effekt */
+}
+
+.linkText {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.link {
+  color: #6c63ff; /* Link-Farbe */
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline; /* Hover-Effekt für Links */
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+}
+

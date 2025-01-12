@@ -1,0 +1,31 @@
+/* Settings.module.css */
+.settingsContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.settingsHeader {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Button spezifisch für Settings */
+.settingsButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.settingsButton:hover {
+  background-color: #0056b3;
+}
+

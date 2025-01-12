@@ -1,0 +1,25 @@
+.slidingText {
+  position: absolute; /* Position relativ zum Top-Header */
+  top: 50%; /* Vertikal zentrieren */
+  left: 0px; /* Abstand von links */
+  transform: translateY(-50%); /* Korrektur für vertikales Zentrieren */
+  height: 20px; /* Höhe des Textcontainers */
+  overflow: hidden;
+  display: flex;
+  align-items: center; /* Vertikale Zentrierung innerhalb des Containers */
+}
+
+.text {
+  position: absolute;
+  white-space: nowrap;
+  padding-left: 50px;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.text.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const authenticateToken = require('../middleware/authenticateToken');
-
+const Cart = require('../models/Cart');
 /**
  * @swagger
  * components:
@@ -173,6 +173,8 @@ router.post(
  *       500:
  *         description: Interner Serverfehler.
  */
+
+// POST /login - Benutzer einloggen und Warenkorb synchronisieren
 router.post(
   '/login',
   [
@@ -187,19 +189,55 @@ router.post(
 
     try {
       console.log('Login-Daten:', req.body);
-      const user = await User.findOne({ email: req.body.email });
+      const { email, password, sessionId } = req.body;
+
+      // Prüfe, ob der User existiert
+      const user = await User.findOne({ email });
       if (!user) {
         return res.status(400).json({ message: 'Ungültige E-Mail oder Passwort.' });
       }
 
-      const isPasswordValid = await bcrypt.compare(req.body.password, user.password_hash);
+      const isPasswordValid = await bcrypt.compare(password, user.password_hash);
       if (!isPasswordValid) {
         return res.status(400).json({ message: 'Ungültige E-Mail oder Passwort.' });
       }
 
+      // Token erstellen
       const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
+
+      // Synchronisiere den Session-Warenkorb mit dem User-Warenkorb
+      if (sessionId) {
+        const sessionCart = await Cart.findOne({ sessionId });
+        let userCart = await Cart.findOne({ userId: user._id });
+
+        if (sessionCart) {
+          if (userCart) {
+            // Warenkörbe zusammenführen
+            sessionCart.items.forEach((sessionItem) => {
+              const existingItem = userCart.items.find(
+                (userItem) => userItem.productId.toString() === sessionItem.productId.toString()
+              );
+              if (existingItem) {
+                existingItem.quantity += sessionItem.quantity;
+              } else {
+                userCart.items.push(sessionItem);
+              }
+            });
+          } else {
+            // Session-Warenkorb direkt dem User zuweisen
+            userCart = new Cart({
+              userId: user._id,
+              items: sessionCart.items,
+            });
+          }
+
+          await userCart.save();
+          await sessionCart.deleteOne(); // Lösche den Session-Warenkorb
+          console.log('Warenkorb erfolgreich synchronisiert.');
+        }
+      }
 
       res.json({ token, message: 'Login erfolgreich!' });
     } catch (err) {
@@ -208,6 +246,8 @@ router.post(
     }
   }
 );
+
+
 
 /**
  * @swagger
@@ -583,6 +623,95 @@ router.get('/protected-data', authenticateToken, (req, res) => {
     });
   } catch (err) {
     console.error('Fehler beim Zugriff auf geschützte Daten:', err.message);
+    res.status(500).json({ message: 'Interner Serverfehler.' });
+  }
+});
+
+router.get('/profile', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Benutzer nicht gefunden' });
+    }
+
+    res.json({
+      name: user.name,
+      email: user.email,
+      address: user.address || 'Keine Adresse hinterlegt',
+      city: user.city || 'Keine Stadt hinterlegt',
+      zipCode: user.zipCode || 'Keine Postleitzahl hinterlegt',
+      phone: user.phone || 'Keine Telefonnummer hinterlegt',
+    });
+  } catch (err) {
+    console.error('Fehler beim Abrufen der Benutzerdaten:', err);
+    res.status(500).json({ message: 'Interner Serverfehler' });
+  }
+});
+
+router.put('/profile', authenticateToken, async (req, res) => {
+  const { name, email, address, city, zipCode, phone } = req.body;
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.userId,
+      {
+        name,
+        email,
+        address,
+        city,
+        zipCode,
+        phone,
+      },
+      { new: true } // Gibt die aktualisierten Daten zurück
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Benutzer nicht gefunden' });
+    }
+
+    res.json({
+      name: updatedUser.name,
+      email: updatedUser.email,
+      address: updatedUser.address || 'Keine Adresse hinterlegt',
+      city: updatedUser.city || 'Keine Stadt hinterlegt',
+      zipCode: updatedUser.zipCode || 'Keine Postleitzahl hinterlegt',
+      phone: updatedUser.phone || 'Keine Telefonnummer hinterlegt',
+    });
+  } catch (err) {
+    console.error('Fehler beim Aktualisieren der Benutzerdaten:', err);
+    res.status(500).json({ message: 'Interner Serverfehler' });
+  }
+});
+
+// Route für Passwort ändern
+router.put('/change-password', authenticateToken, async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword) {
+    return res.status(400).json({ message: 'Altes und neues Passwort erforderlich.' });
+  }
+
+  try {
+    // Benutzer aus der Datenbank abrufen
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Benutzer nicht gefunden.' });
+    }
+
+    // Überprüfen, ob das alte Passwort korrekt ist
+    const isMatch = await bcrypt.compare(oldPassword, user.password_hash);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Altes Passwort ist falsch.' });
+    }
+
+    // Neues Passwort hashen und speichern
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password_hash = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Passwort erfolgreich geändert.' });
+  } catch (err) {
+    console.error('Fehler beim Ändern des Passworts:', err);
     res.status(500).json({ message: 'Interner Serverfehler.' });
   }
 });
